@@ -1,27 +1,16 @@
-import mysql from "mysql2";
+import dotenv from 'dotenv';
+import mysql from 'mysql2';
 import dbConfig from "../config/db.config.js";
 import logger from "../util/logger.js";
 
-// Create a MySQL connection pool
+dotenv.config();
 const pool = mysql.createPool({
-	database: dbConfig.DB,
 	host: dbConfig.HOST,
 	port: dbConfig.PORT,
 	user: dbConfig.USER,
 	password: dbConfig.PASSWORD,
+	database: dbConfig.DB_NAME,
 	connectionLimit: dbConfig.pool.max,
-	queryFormat: function (query, values) {
-		if (!values) return query;
-		return query.replace(
-			/\:(\w+)/g,
-			function (txt, key) {
-				if (values.hasOwnProperty(key)) {
-					return this.escape(values[key]);
-				}
-				return txt;
-			}.bind(this),
-		);
-	},
 });
 
 // Test the connection
@@ -34,5 +23,4 @@ pool.getConnection((err, connection) => {
 	}
 });
 
-// Export the pool
 export default pool;
