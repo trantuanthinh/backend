@@ -6,7 +6,7 @@ import logger from "../util/logger.js";
 
 export const getAdmins = (req, res) => {
 	logger.info(`${req.method} ${req.originalUrl}, fetching admins`);
-	database.query(QUERY_ADMINS.SELECT_ADMIN_ACCS, (error, results) => {
+	database.query(QUERY_ADMINS.SELECT_ADMIN, (error, results) => {
 		if (!results) {
 			res.status(HttpStatus.OK.code)
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No admins found`));
