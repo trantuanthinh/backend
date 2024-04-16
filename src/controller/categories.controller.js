@@ -1,6 +1,6 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
-import QUERY_CATEGORIES from "../query/category.query.js";
+import QUERY_CATEGORIES from "../query/categories.query.js";
 import HttpStatus from "../util/httpStatus.js";
 import logger from "../util/logger.js";
 
@@ -38,9 +38,9 @@ export const createCategory = (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR.code)
 				.send(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message));
 		} else {
-			const category = results[0][0];
+			const category = results[0];
 			res.status(HttpStatus.CREATED.code)
-				.send(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Category created`, { category }));
+				.send(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Category created`, category));
 		}
 	});
 };
@@ -72,12 +72,10 @@ export const deleteCategory = (req, res) => {
 	database.query(QUERY_CATEGORIES.DELETE_CATEGORY, [req.params.id], (error, results) => {
 		if (results.affectedRows > 0) {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Category deleted`, results[0]));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Category deleted`, { id: req.params.id }));
 		} else {
 			res.status(HttpStatus.NOT_FOUND.code)
 				.send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, `Category by id ${req.params.id} was not found`));
 		}
 	});
 };
-
-export default HttpStatus;

@@ -1,6 +1,6 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
-import QUERY_ADMINS from "../query/admin.query.js";
+import QUERY_ADMINS from "../query/admins.query.js";
 import HttpStatus from "../util/httpStatus.js";
 import logger from "../util/logger.js";
 
@@ -38,9 +38,9 @@ export const createAdmin = (req, res) => {
 			res.status(HttpStatus.INTERNAL_SERVER_ERROR.code)
 				.send(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message));
 		} else {
-			const admin = results[0][0];
+			const admin = results[0];
 			res.status(HttpStatus.CREATED.code)
-				.send(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Admin created`, { admin }));
+				.send(new Response(HttpStatus.CREATED.code, HttpStatus.CREATED.status, `Admin created`, admin));
 		}
 	});
 };
@@ -72,12 +72,10 @@ export const deleteAdmin = (req, res) => {
 	database.query(QUERY_ADMINS.DELETE_ADMIN_ACC, [req.params.id], (error, results) => {
 		if (results.affectedRows > 0) {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Admin deleted`, results[0]));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Admin deleted`, { id: req.params.id }));
 		} else {
 			res.status(HttpStatus.NOT_FOUND.code)
 				.send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, `Admin by id ${req.params.id} was not found`));
 		}
 	});
 };
-
-export default HttpStatus;

@@ -3,55 +3,63 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import ip from "ip";
-import HttpStatus from "./controller/admin.controller.js";
 import Response from "./domain/response.js";
-import adminRoutes from "./router/admin.router.js";
-import categoryRoutes from "./router/category.router.js";
-import customerRoutes from "./router/customer.router.js";
-import decorRoutes from "./router/decor.router.js";
-import des_productRoutes from "./router/des_product.router.js";
-import orderRoutes from "./router/order.router.js";
-import order_detailRoutes from "./router/order_detail.router.js";
-import productRoutes from "./router/product.router.js";
+import HttpStatus from "./util/HttpStatus.js";
 import logger from "./util/logger.js";
+
+import adminsRoutes from "./router/admins.router.js";
+import categoriesRoutes from "./router/categories.router.js";
+import customersRoutes from "./router/customers.router.js";
+import decorsRoutes from "./router/decors.router.js";
+import des_productsRoutes from "./router/des_products.router.js";
+import flavoursRoutes from './router/flavours.router.js';
+import inventoriesRoutes from "./router/inventories.router.js";
+import order_detailsRoutes from "./router/order_details.router.js";
+import ordersRoutes from "./router/orders.router.js";
+import productsRoutes from "./router/products.router.js";
+import shapesRoutes from './router/shapes.router.js';
+import sizesRoutes from "./router/sizes.router.js";
 
 dotenv.config();
 const PORT = process.env.SERVER_PORT;
 const app = express();
 
-app.use(
-	cors({
-		origin: "*",
-	}),
-);
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-adminRoutes.use(express.json());
-categoryRoutes.use(express.json());
-customerRoutes.use(express.json());
-decorRoutes.use(express.json());
-des_productRoutes.use(express.json());
-order_detailRoutes.use(express.json());
-orderRoutes.use(express.json());
-productRoutes.use(express.json());
-
-app.use("/api/admin", adminRoutes);
-app.use("/api/category", categoryRoutes);
-app.use("/api/customer", customerRoutes);
-app.use("/api/decor", decorRoutes);
-app.use("/api/des_product", des_productRoutes);
-app.use("/api/order_detail", order_detailRoutes);
-app.use("/api/order", orderRoutes);
-app.use("/api/product", productRoutes);
-
-app.get("/api", (_req, res) => res.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, "API is running")));
-
-app.all('*', (req, res) => res.status(HttpStatus.NOT_FOUND.code)
-	.send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, 'Route does not exist on the server')));
-
 app.listen(PORT, () => {
 	logger.info(`Server is running on: ${ip.address()}:${PORT}`);
 	logger.info(`Global Version: ${process.env.GLOBAL_VERSION}`);
 });
+
+app.use(cors({ origin: "*", }),);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// adminsRoutes.use(express.json());
+// categoriesRoutes.use(express.json());
+// customersRoutes.use(express.json());
+// decorsRoutes.use(express.json());
+// des_productsRoutes.use(express.json());
+// flavoursRoutes.use(express.json());
+// inventoriesRoutes.use(express.json());
+// order_detailsRoutes.use(express.json());
+// ordersRoutes.use(express.json());
+// productsRoutes.use(express.json());
+// shapesRoutes.use(express.json());
+// sizesRoutes.use(express.json());
+
+app.get("/api", (_req, res) => res.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, "API is running")));
+
+app.use("/api/admins", adminsRoutes);
+app.use("/api/categories", categoriesRoutes);
+app.use("/api/customers", customersRoutes);
+app.use("/api/decors", decorsRoutes);
+app.use("/api/des_products", des_productsRoutes);
+app.use("/api/flavours", flavoursRoutes);
+app.use("/api/inventories", inventoriesRoutes);
+app.use("/api/order_details", order_detailsRoutes);
+app.use("/api/orders", ordersRoutes);
+app.use("/api/products", productsRoutes);
+app.use("/api/shapes", shapesRoutes);
+app.use("/api/sizes", sizesRoutes);
+
+app.all('*', (req, res) => res.status(HttpStatus.NOT_FOUND.code)
+	.send(new Response(HttpStatus.NOT_FOUND.code, HttpStatus.NOT_FOUND.status, 'Route does not exist on the server')));

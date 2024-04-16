@@ -1,6 +1,6 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
-import QUERY_PRODUCTS from "../query/product.query.js";
+import QUERY_PRODUCTS from "../query/products.query.js";
 import HttpStatus from "../util/httpStatus.js";
 import logger from "../util/logger.js";
 
@@ -79,5 +79,3 @@ export const deleteProduct = (req, res) => {
 		}
 	});
 };
-
-export default HttpStatus;

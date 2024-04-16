@@ -1,6 +1,6 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
-import QUERY_ORDERS_DETAILS from "../query/order_detail.query.js";
+import QUERY_ORDERS_DETAILS from "../query/order_details.query.js";
 import HttpStatus from "../util/httpStatus.js";
 import logger from "../util/logger.js";
 
@@ -79,5 +79,3 @@ export const deleteOrder_Detail = (req, res) => {
 		}
 	});
 };
-
-export default HttpStatus;
