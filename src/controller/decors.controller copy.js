@@ -12,7 +12,7 @@ export const getDecors = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No decors found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Decors retrieved`, { decors: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Decors retrieved`, results));
 		}
 	});
 };

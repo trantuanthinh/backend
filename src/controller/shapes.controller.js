@@ -12,7 +12,7 @@ export const getShapes = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No shapes found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Shapes retrieved`, { shapes: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Shapes retrieved`, results));
 		}
 	});
 };

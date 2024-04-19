@@ -12,7 +12,7 @@ export const getFlavours = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No flavours found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Flavours retrieved`, { flavours: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Flavours retrieved`, results));
 		}
 	});
 };

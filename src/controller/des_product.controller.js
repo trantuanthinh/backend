@@ -12,7 +12,8 @@ export const getDes_Products = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No des_products found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Des_Products retrieved`, { des_products: results }));
+				.send(new Response(HttpStatus.OK.code,
+					HttpStatus.OK.status, `Des_Products retrieved`, results));
 		}
 	});
 };

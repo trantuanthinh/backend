@@ -27,7 +27,6 @@ const app = express();
 
 const networkInterfaces = os.networkInterfaces();
 const wifiInterface = networkInterfaces['Wi-Fi'];
-// c wifiIPAddress;
 
 app.listen(PORT, () => {
 	if (wifiInterface) {

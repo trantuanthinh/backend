@@ -12,7 +12,7 @@ export const getSizes = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No sizes found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Sizes retrieved`, { sizes: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Sizes retrieved`, results));
 		}
 	});
 };

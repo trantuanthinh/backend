@@ -12,7 +12,7 @@ export const getInventories = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No inventories found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Inventories retrieved`, { inventories: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Inventories retrieved`, results));
 		}
 	});
 };

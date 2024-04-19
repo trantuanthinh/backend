@@ -12,7 +12,7 @@ export const getOrders = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No orders found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Orders retrieved`, { orders: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Orders retrieved`, results));
 		}
 	});
 };

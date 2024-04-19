@@ -13,7 +13,7 @@ export const getCustomers = (req, res) => {
 				.send(new Response(HttpStatus.INTERNAL_SERVER_ERROR.code, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Customers retrieved`, { customers: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Customers retrieved`, results));
 		}
 	});
 };

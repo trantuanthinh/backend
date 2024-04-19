@@ -12,7 +12,7 @@ export const getAdmins = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No admins found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Admins retrieved`, { admins: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Admins retrieved`, results));
 		}
 	});
 };

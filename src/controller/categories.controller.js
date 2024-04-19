@@ -12,7 +12,7 @@ export const getCategories = (req, res) => {
 				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `No categories found`));
 		} else {
 			res.status(HttpStatus.OK.code)
-				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Categories retrieved`, { categories: results }));
+				.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Categories retrieved`, results));
 		}
 	});
 };
