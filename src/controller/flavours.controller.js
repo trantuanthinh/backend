@@ -1,7 +1,7 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
 import QUERY_FLAVOURS from "../query/flavours.query.js";
-import HttpStatus from "../util/httpStatus.js";
+import HttpStatus from "../util/HttpStatus.js";
 import logger from "../util/logger.js";
 
 export const getFlavours = (req, res) => {

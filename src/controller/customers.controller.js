@@ -1,7 +1,7 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
 import QUERY_CUSTOMERS from "../query/customers.query.js";
-import HttpStatus from "../util/httpStatus.js";
+import HttpStatus from "../util/HttpStatus.js";
 import logger from "../util/logger.js";
 
 export const getCustomers = (req, res) => {

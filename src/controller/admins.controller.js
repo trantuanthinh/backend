@@ -1,7 +1,7 @@
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
 import QUERY_ADMINS from "../query/admins.query.js";
-import HttpStatus from "../util/httpStatus.js";
+import HttpStatus from "../util/HttpStatus.js";
 import logger from "../util/logger.js";
 
 export const getAdmins = (req, res) => {
