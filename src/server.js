@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import ip from "ip";
+import os from "os";
 import Response from "./domain/response.js";
 import HttpStatus from "./util/HttpStatus.js";
 import logger from "./util/logger.js";
@@ -24,7 +25,17 @@ dotenv.config();
 const PORT = process.env.SERVER_PORT;
 const app = express();
 
+const networkInterfaces = os.networkInterfaces();
+const wifiInterface = networkInterfaces['Wi-Fi'];
+// c wifiIPAddress;
+
 app.listen(PORT, () => {
+	if (wifiInterface) {
+		const wifiIPAddress = wifiInterface.find(netInterface => netInterface.family === 'IPv4').address;
+		logger.info(`IP Wireless LAN adapter Wi-fi: ${wifiIPAddress}:${PORT}`);
+	} else {
+		logger.info(`Not Found IP Wireless LAN adapter Wi-fi`);
+	}
 	logger.info(`Server is running on: ${ip.address()}:${PORT}`);
 	logger.info(`Global Version: ${process.env.GLOBAL_VERSION}`);
 });
