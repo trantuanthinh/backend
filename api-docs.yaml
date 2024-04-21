@@ -1,0 +1,42 @@
+openapi: 3.0.3
+info:
+  title: Cake Project
+  description: This is a Cake Project Server based on the OpenAPI 3.0 specification.
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.11
+servers:
+  - url: https://localhost:3000
+  - url: https://cake-project.swagger.io/api/v3
+tags:
+  - name: auth
+    description: Authencation
+paths:
+  /admin:
+    get:
+      tags:
+        - admin
+      summary: Update an existing pet
+      description: Update an existing pet by Id
+      operationId: updatePet
+      requestBody:
+        description: Update an existent pet in the store
+        content:
+          application/json:
+            schema:
+        required: true
+      responses:
+        "200":
+          description: Successful
+          content:
+            application/json:
+              schema:
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Pet not found
+        "422":
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets

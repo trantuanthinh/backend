@@ -1,0 +1,8 @@
+{
+    "watch": [
+        "server.js",
+        "api-docs.yaml",
+        "src/"
+    ],
+    "ext": "js,mjs,cjs,json,yaml"
+}

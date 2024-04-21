@@ -1,4 +1,4 @@
-module.exports = (router) => {
+export default = (router) => {
 	const JWT = require("../Global/JWT");
 
 	router.get("/", async (req, res) => {

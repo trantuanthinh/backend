@@ -15,6 +15,6 @@ let isAuth = async (req, res, next) => {
     }
 };
 
-module.exports = {
+export default = {
     isAuth: isAuth,
 };
