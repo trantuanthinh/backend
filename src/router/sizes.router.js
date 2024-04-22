@@ -1,5 +1,11 @@
 import express from "express";
-import { createSize, deleteSize, getSize, getSizes, updateSize } from "../controller/sizes.controller.js";
+import {
+    createSize,
+    deleteSize,
+    getSize,
+    getSizes,
+    updateSize,
+} from "../controller/sizes.controller.js";
 
 const sizesRoutes = express.Router();
 

@@ -1,5 +1,11 @@
 import express from "express";
-import { createDecor, deleteDecor, getDecor, getDecors, updateDecor } from "../controller/decors.controller.js";
+import {
+    createDecor,
+    deleteDecor,
+    getDecor,
+    getDecors,
+    updateDecor,
+} from "../controller/decors.controller.js";
 
 const decorsRoutes = express.Router();
 

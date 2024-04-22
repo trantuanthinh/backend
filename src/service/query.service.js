@@ -1,24 +1,43 @@
+//done
 const QUERY_SERVICE = {
     getAllQuery: function (tableName) {
-        return `SELECT * FROM ${tableName}`;
+        return `SELECT * FROM \`${tableName}\``;
     },
 
-    getItemQuery: function (tableName, keyName, id) {
-        return `SELECT * FROM ${tableName} WHERE ${keyName} = ?`;
+    getItemQuery: function (tableName, keyName) {
+        return `SELECT * FROM \`${tableName}\` WHERE \`${keyName}\` = ?`;
     },
 
-    createItemQuery: function (tableName, columnNames, columnValues) {
-        return `INSERT INTO ${tableName} (${columnNames}) VALUES (${columnValues})`;
+    createItemQuery: function (tableName, columnNames) {
+        let columnClause = "";
+        let valueClause = "";
+        for (let i = 0; i < columnNames.length; i++) {
+            if (i === columnNames.length - 1) {
+                valueClause += "?";
+                columnClause += `\`${columnNames[i]}\``;
+            } else {
+                valueClause += "?, ";
+                columnClause += `\`${columnNames[i]}\`, `;
+            }
+        }
+        return `INSERT INTO \`${tableName}\` (${columnClause}) VALUES (${valueClause})`;
     },
 
-    updateItemQuery: function (tableName, columnNames, columnValues) {
-        // const setClause = columnNames.map((columnName, index) => `\`${columnName}\` = ?`).join(', ');
-        // return `UPDATE ${tableName} SET ${setClause} WHERE \`ad_id\` = ?`;
+    updateItemQuery: function (tableName, keyName, columnNames) {
+        let clause = "";
+        for (let i = 0; i < columnNames.length; i++) {
+            if (i === columnNames.length - 1) {
+                clause += `\`${columnNames[i]}\` = ?`;
+            } else {
+                clause += `\`${columnNames[i]}\` = ?, `;
+            }
+        }
+        return `UPDATE ${tableName} SET ${clause} WHERE \`${keyName}\` = ?`;
     },
 
-    deleteItemQuery: function (tableName, keyName, id) {
+    deleteItemQuery: function (tableName, keyName) {
         return `DELETE FROM ${tableName} WHERE ${keyName} = ?`;
-    }
+    },
 };
 
 export default QUERY_SERVICE;
