@@ -88,6 +88,9 @@ const CONTROLLER_SERVICE = {
         logger.info(
             `${req.method} ${req.originalUrl}, creating ${entity.TABLE_NAME}`
         );
+        console.log(
+            QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME)
+        );
         database.query(
             QUERY_SERVICE.createItemQuery(
                 entity.TABLE_NAME,
@@ -105,13 +108,13 @@ const CONTROLLER_SERVICE = {
 
                     res.status(status).send(response);
                 } else {
-                    const entity = results[0];
+                    const req = results[0];
                     let status = HttpStatus.CREATED.code;
                     let response = new Response(
                         HttpStatus.CREATED.code,
                         HttpStatus.CREATED.status,
                         `Created Item Successfully: ${entity.TABLE_NAME}`,
-                        entity
+                        req
                     );
                     res.status(status).send(response);
                 }

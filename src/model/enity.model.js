@@ -116,6 +116,7 @@ const ENTITIES = {
             `size_id`,
             `flavour_id`,
             `name`,
+            `quantity`,
             `image`,
             `price`,
         ],
