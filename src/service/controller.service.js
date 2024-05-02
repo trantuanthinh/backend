@@ -12,6 +12,7 @@ const CONTROLLER_SERVICE = {
         );
         database.query(
             QUERY_SERVICE.getAllQuery(entity.TABLE_NAME),
+            // QUERY_SERVICE.getProducts(entity.TABLE_NAME),
             (error, results) => {
                 if (error) {
                     let status = HttpStatus.INTERNAL_SERVER_ERROR.code;
@@ -87,9 +88,6 @@ const CONTROLLER_SERVICE = {
     createItem: function (entity, req, res) {
         logger.info(
             `${req.method} ${req.originalUrl}, creating ${entity.TABLE_NAME}`
-        );
-        console.log(
-            QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME)
         );
         database.query(
             QUERY_SERVICE.createItemQuery(

@@ -1,5 +1,16 @@
 //done
 const QUERY_SERVICE = {
+    getProducts: function (tableName) {
+        return `SELECT p.*, c.type AS category_type, c.price as category_price, sh.shape, sh.price as shape_price, si.price as size_price, f.flavour, f.price as flavour_price
+        FROM products AS p
+        INNER JOIN categories AS c ON p.category_id = c.category_id
+        INNER JOIN shapes AS sh ON p.shape_id = sh.shape_id
+        INNER JOIN sizes AS si ON p.size_id = si.size_id
+        INNER JOIN flavours AS f ON p.flavour_id = f.flavour_id
+        WHERE p.prod_id = 1;
+        `;
+    },
+
     getAllQuery: function (tableName) {
         return `SELECT * FROM \`${tableName}\``;
     },
