@@ -7,9 +7,7 @@ import QUERY_SERVICE from "./query.service.js";
 
 const CONTROLLER_SERVICE = {
     getAll: function (entity, req, res) {
-        logger.info(
-            `${req.method} ${req.originalUrl}, fetching table ${entity.TABLE_NAME}`
-        );
+        logger.info(`${req.method} ${req.originalUrl}, fetching table ${entity.TABLE_NAME}`);
         database.query(
             QUERY_SERVICE.getAllQuery(entity.TABLE_NAME),
             // QUERY_SERVICE.getProducts(entity.TABLE_NAME),
@@ -48,9 +46,7 @@ const CONTROLLER_SERVICE = {
     },
 
     getItem: function (entity, req, res) {
-        logger.info(
-            `${req.method} ${req.originalUrl}, fetching ${entity.TABLE_NAME}`
-        );
+        logger.info(`${req.method} ${req.originalUrl}, fetching ${entity.TABLE_NAME}`);
         database.query(
             QUERY_SERVICE.getItemQuery(entity.TABLE_NAME, entity.PRIMARY_KEY),
             [req.params.id],
@@ -86,14 +82,10 @@ const CONTROLLER_SERVICE = {
     },
 
     createItem: function (entity, req, res) {
-        logger.info(
-            `${req.method} ${req.originalUrl}, creating ${entity.TABLE_NAME}`
-        );
+        logger.info(`${req.method} ${req.originalUrl}, creating ${entity.TABLE_NAME}`);
+        console.log(QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME));
         database.query(
-            QUERY_SERVICE.createItemQuery(
-                entity.TABLE_NAME,
-                entity.COLUMN_NAME
-            ),
+            QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME),
             Object.values(req.body),
             (error, results) => {
                 if (error) {
@@ -121,15 +113,9 @@ const CONTROLLER_SERVICE = {
     },
 
     updateItem: function (entity, req, res) {
-        logger.info(
-            `${req.method} ${req.originalUrl}, updating ${entity.TABLE_NAME}`
-        );
+        logger.info(`${req.method} ${req.originalUrl}, updating ${entity.TABLE_NAME}`);
         database.query(
-            QUERY_SERVICE.updateItemQuery(
-                entity.TABLE_NAME,
-                entity.PRIMARY_KEY,
-                entity.COLUMN_NAME
-            ),
+            QUERY_SERVICE.updateItemQuery(entity.TABLE_NAME, entity.PRIMARY_KEY, entity.COLUMN_NAME),
             [...Object.values(req.body), req.params.id],
             (error, results) => {
                 if (error) {
@@ -166,14 +152,9 @@ const CONTROLLER_SERVICE = {
     },
 
     deleteItem: function (entity, req, res) {
-        logger.info(
-            `${req.method} ${req.originalUrl}, deleting ${entity.TABLE_NAME}`
-        );
+        logger.info(`${req.method} ${req.originalUrl}, deleting ${entity.TABLE_NAME}`);
         database.query(
-            QUERY_SERVICE.deleteItemQuery(
-                entity.TABLE_NAME,
-                entity.PRIMARY_KEY
-            ),
+            QUERY_SERVICE.deleteItemQuery(entity.TABLE_NAME, entity.PRIMARY_KEY),
             [[req.params.id]],
             (error, results) => {
                 if (error) {

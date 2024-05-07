@@ -1,10 +1,5 @@
 import express from "express";
-import {
-    getProdPhoto,
-    getProdPhotos,
-    removeProdPhoto,
-    uploadProd,
-} from "../controller/prodPhotos.controller.js";
+import { getProdPhoto, getProdPhotos, removeProdPhoto, uploadProd } from "../controller/prodPhotos.controller.js";
 
 const prodPhotosRoutes = express.Router();
 

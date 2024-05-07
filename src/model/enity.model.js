@@ -4,14 +4,7 @@ const ENTITIES = {
     Admins: {
         TABLE_NAME: `admins`,
         PRIMARY_KEY: `ad_id`,
-        COLUMN_NAME: [
-            `user_name`,
-            `password`,
-            `first_name`,
-            `last_name`,
-            `phone`,
-            `email`,
-        ],
+        COLUMN_NAME: [`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`],
     },
 
     //2. done categories
@@ -25,15 +18,7 @@ const ENTITIES = {
     Customers: {
         TABLE_NAME: `customers`,
         PRIMARY_KEY: `cus_id`,
-        COLUMN_NAME: [
-            `first_name`,
-            `last_name`,
-            `phone`,
-            `email`,
-            `address`,
-            `gender`,
-            `dateOfBirth`,
-        ],
+        COLUMN_NAME: [`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`],
     },
 
     //4. done decor_details
@@ -74,35 +59,29 @@ const ENTITIES = {
     },
 
     //8. done inventories
-    Inventories: {
-        TABLE_NAME: `inventories`,
-        PRIMARY_KEY: `inventory_id`,
-        COLUMN_NAME: [`prod_id`, `quantity`],
-    },
+    // Inventories: {
+    //     TABLE_NAME: `inventories`,
+    //     PRIMARY_KEY: `inventory_id`,
+    //     COLUMN_NAME: [`prod_id`, `quantity`],
+    // },
 
     //9. done order_details
-    Order_Details: {
-        TABLE_NAME: `order_details`,
-        PRIMARY_KEY: `order_detail_id`,
-        COLUMN_NAME: [
-            `prod_id`,
-            `prod_quantity`,
-            `des_prod_id`,
-            `des_prod_quantity`,
-        ],
-    },
+    // Order_Details: {
+    //     TABLE_NAME: `order_details`,
+    //     PRIMARY_KEY: `order_detail_id`,
+    //     COLUMN_NAME: [
+    //         `prod_id`,
+    //         `prod_quantity`,
+    //         `des_prod_id`,
+    //         `des_prod_quantity`,
+    //     ],
+    // },
 
     //10. done orders
     Orders: {
         TABLE_NAME: `orders`,
         PRIMARY_KEY: `order_id`,
-        COLUMN_NAME: [
-            `order_detail_id`,
-            `cus_id`,
-            `delivery_status`,
-            `total_unit`,
-            `total_price`,
-        ],
+        COLUMN_NAME: [`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`],
     },
 
     //11. done products
@@ -110,7 +89,6 @@ const ENTITIES = {
         TABLE_NAME: `products`,
         PRIMARY_KEY: `prod_id`,
         COLUMN_NAME: [
-            `decor_detail_id`,
             `category_id`,
             `shape_id`,
             `size_id`,
@@ -119,6 +97,7 @@ const ENTITIES = {
             `quantity`,
             `image`,
             `price`,
+            `status`,
         ],
     },
 

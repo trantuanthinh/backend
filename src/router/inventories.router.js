@@ -10,11 +10,6 @@ import {
 const inventoriesRoutes = express.Router();
 
 inventoriesRoutes.route("/").get(getInventories).post(createInventory);
-
-inventoriesRoutes
-    .route("/:id")
-    .get(getInventory)
-    .put(updateInventory)
-    .delete(deleteInventory);
+inventoriesRoutes.route("/:id").get(getInventory).put(updateInventory).delete(deleteInventory);
 
 export default inventoriesRoutes;

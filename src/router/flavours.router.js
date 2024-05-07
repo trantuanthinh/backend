@@ -10,11 +10,6 @@ import {
 const flavoursRoutes = express.Router();
 
 flavoursRoutes.route("/").get(getFlavours).post(createFlavour);
-
-flavoursRoutes
-    .route("/:id")
-    .get(getFlavour)
-    .put(updateFlavour)
-    .delete(deleteFlavour);
+flavoursRoutes.route("/:id").get(getFlavour).put(updateFlavour).delete(deleteFlavour);
 
 export default flavoursRoutes;

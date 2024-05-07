@@ -6,13 +6,11 @@ const baseUrl = `http://localhost:3000/api/prod_photo/`;
 export const uploadProd = async (req, res) => {
     try {
         await uploadProdFile(req, res);
-
         if (req.file == undefined) {
             return res
                 .status(400)
                 .send({ message: "Please upload a product photo!" });
         }
-
         res.status(200).send({
             message:
                 "Uploaded the product photo successfully: " +
@@ -20,13 +18,11 @@ export const uploadProd = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-
         if (err.code == "LIMIT_FILE_SIZE") {
             return res.status(500).send({
                 message: "Product photo size cannot be larger than 2MB!",
             });
         }
-
         res.status(500).send({
             message: `Could not upload the product photo: ${req.file.originalname}. ${err}`,
         });
