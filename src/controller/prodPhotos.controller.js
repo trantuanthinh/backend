@@ -7,14 +7,10 @@ export const uploadProd = async (req, res) => {
     try {
         await uploadProdFile(req, res);
         if (req.file == undefined) {
-            return res
-                .status(400)
-                .send({ message: "Please upload a product photo!" });
+            return res.status(400).send({ message: "Please upload a product photo!" });
         }
         res.status(200).send({
-            message:
-                "Uploaded the product photo successfully: " +
-                req.file.originalname,
+            message: "Uploaded the product photo successfully: " + req.file.originalname,
         });
     } catch (err) {
         console.log(err);

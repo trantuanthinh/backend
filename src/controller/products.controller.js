@@ -20,3 +20,7 @@ export const updateProduct = (req, res) => {
 export const deleteProduct = (req, res) => {
     CONTROLLER_SERVICE.deleteItem(ENTITIES.Products, req, res);
 };
+
+export const getProductByCategoryID = (req, res) => {
+    CONTROLLER_SERVICE.getProductByCategoryIDController(req, res);
+};

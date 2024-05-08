@@ -19,7 +19,6 @@ const CONTROLLER_SERVICE = {
                         HttpStatus.INTERNAL_SERVER_ERROR.status,
                         error.message
                     );
-
                     res.status(status).send(response);
                 } else if (!results || results.length === 0) {
                     let status = HttpStatus.OK.code;
@@ -95,7 +94,6 @@ const CONTROLLER_SERVICE = {
                         HttpStatus.INTERNAL_SERVER_ERROR.status,
                         error.message
                     );
-
                     res.status(status).send(response);
                 } else {
                     const req = results[0];
@@ -125,7 +123,6 @@ const CONTROLLER_SERVICE = {
                         HttpStatus.INTERNAL_SERVER_ERROR.status,
                         error.message
                     );
-
                     res.status(status).send(response);
                 } else if (results.affectedRows > 0) {
                     let status = HttpStatus.OK.code;
@@ -164,7 +161,6 @@ const CONTROLLER_SERVICE = {
                         HttpStatus.INTERNAL_SERVER_ERROR.status,
                         error.message
                     );
-
                     res.status(status).send(response);
                 } else if (results.affectedRows > 0) {
                     let status = HttpStatus.OK.code;
@@ -188,6 +184,35 @@ const CONTROLLER_SERVICE = {
                 }
             }
         );
+    },
+
+    getProductByCategoryIDController: function (req, res) {
+        logger.info(`${req.method} ${req.originalUrl}`);
+        database.query(QUERY_SERVICE.getProductsByCategoryIDQuery(), [req.params.id], (error, results) => {
+            if (error) {
+                let status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+                let response = new Response(
+                    HttpStatus.INTERNAL_SERVER_ERROR.code,
+                    HttpStatus.INTERNAL_SERVER_ERROR.status,
+                    error.message
+                );
+                res.status(status).send(response);
+            } else if (!results || results.length === 0) {
+                let status = HttpStatus.OK.code;
+                let response = new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Not found`);
+
+                res.status(status).send(response);
+            } else {
+                let status = HttpStatus.OK.code;
+                let response = new Response(
+                    HttpStatus.OK.code,
+                    HttpStatus.OK.status,
+                    `Get All Successfully`,
+                    results
+                );
+                res.status(status).send(response);
+            }
+        });
     },
 };
 

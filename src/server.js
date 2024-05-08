@@ -38,9 +38,7 @@ const networkInterfaces = os.networkInterfaces();
 const wifiInterface = networkInterfaces["Wi-Fi"];
 app.listen(PORT, () => {
     if (wifiInterface) {
-        const wifiIPAddress = wifiInterface.find(
-            (netInterface) => netInterface.family === "IPv4"
-        ).address;
+        const wifiIPAddress = wifiInterface.find((netInterface) => netInterface.family === "IPv4").address;
         global.__baseURL = `${wifiIPAddress}:${PORT}`;
         logger.info(`Server is running on baseURL: ${__baseURL}`);
     } else {
@@ -53,11 +51,7 @@ app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/api", (_req, res) =>
-    res.send(
-        new Response(HttpStatus.OK.code, HttpStatus.OK.status, "API is running")
-    )
-);
+app.get("/api", (_req, res) => res.send(new Response(HttpStatus.OK.code, HttpStatus.OK.status, "API is running")));
 
 app.use("/api/prod_photo", prodPhotosRoutes);
 app.use("/api/decor_photo", decorPhotosRoutes);
