@@ -76,7 +76,7 @@ const ENTITIES = {
     Orders: {
         TABLE_NAME: `orders`,
         PRIMARY_KEY: `order_id`,
-        COLUMN_NAME: [`cus_id`, `delivery_status`, `total_unit`, `total_price`],
+        COLUMN_NAME: [`cus_id`, `delivery_status`, `total_unit`, `total_origin_price`, `total_price`],
     },
 
     //11. done products
