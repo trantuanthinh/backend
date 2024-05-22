@@ -17,12 +17,12 @@ import decorsRoutes from "./router/decors.router.js";
 import des_productsRoutes from "./router/des_products.router.js";
 import flavoursRoutes from "./router/flavours.router.js";
 import inventoriesRoutes from "./router/inventories.router.js";
-import order_detailsRoutes from "./router/order_details.router.js";
 import ordersRoutes from "./router/orders.router.js";
 import prodPhotosRoutes from "./router/prodPhotos.router.js";
 import productsRoutes from "./router/products.router.js";
 import shapesRoutes from "./router/shapes.router.js";
 import sizesRoutes from "./router/sizes.router.js";
+import totalRoutes from "./router/total.router.js";
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -62,11 +62,12 @@ app.use("/api/decors", decorsRoutes);
 app.use("/api/des_products", des_productsRoutes);
 app.use("/api/flavours", flavoursRoutes);
 app.use("/api/inventories", inventoriesRoutes);
-app.use("/api/order_details", order_detailsRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/shapes", shapesRoutes);
 app.use("/api/sizes", sizesRoutes);
+
+app.use("/api/total", totalRoutes);
 
 app.all("*", (req, res) =>
     res

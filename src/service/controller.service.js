@@ -186,6 +186,8 @@ const CONTROLLER_SERVICE = {
         );
     },
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     getProductByCategoryIDController: function (req, res) {
         logger.info(`${req.method} ${req.originalUrl}`);
         database.query(QUERY_SERVICE.getProductsByCategoryIDQuery(), [req.params.id], (error, results) => {
@@ -200,7 +202,6 @@ const CONTROLLER_SERVICE = {
             } else if (!results || results.length === 0) {
                 let status = HttpStatus.OK.code;
                 let response = new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Not found`);
-
                 res.status(status).send(response);
             } else {
                 let status = HttpStatus.OK.code;
