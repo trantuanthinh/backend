@@ -2,11 +2,11 @@ import ENTITIES from "../model/enity.model.js";
 import CONTROLLER_SERVICE from "../service/controller.service.js";
 
 export const getOrders = (req, res) => {
-    CONTROLLER_SERVICE.getAll(ENTITIES.Orders, req, res);
+    CONTROLLER_SERVICE.getOrders(ENTITIES.Orders, req, res);
 };
 
 export const getOrder = (req, res) => {
-    CONTROLLER_SERVICE.getItem(ENTITIES.Orders, req, res);
+    CONTROLLER_SERVICE.getOrder(ENTITIES.Orders, req, res);
 };
 
 export const createOrder = (req, res) => {

@@ -61,14 +61,14 @@ const ENTITIES = {
     // done order_des_prod_details
     Order_Des_Prod_Details: {
         TABLE_NAME: `order_des_prod_details`,
-        PRIMARY_KEY: [`order_id`, `des_prod_id`],
+        PRIMARY_KEY: `order_id`,
         COLUMN_NAME: [`des_prod_quantity`],
     },
 
     // done order_prod_details
     Order_Prod_Details: {
         TABLE_NAME: `order_prod_details`,
-        PRIMARY_KEY: [`order_id`, `prod_id`],
+        PRIMARY_KEY: `order_id`,
         COLUMN_NAME: [`prod_quantity`],
     },
 
