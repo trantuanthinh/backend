@@ -1,4 +1,3 @@
-//done
 import database from "../Global/databaseConnection.js";
 import Response from "../domain/response.js";
 import ENTITIES from "../model/enity.model.js";
@@ -42,7 +41,7 @@ const CONTROLLER_SERVICE = {
     },
 
     getItem: function (entity, req, res) {
-        logger.info(`${req.method} ${req.originalUrl}, fetching ${entity.TABLE_NAME}`);
+        logger.info(`${req.method} ${req.originalUrl}, fetching ${entity.TABLE_NAME}/${req.params.id}`);
         database.query(
             QUERY_SERVICE.getItemQuery(entity.TABLE_NAME, entity.PRIMARY_KEY),
             [req.params.id],
@@ -186,7 +185,7 @@ const CONTROLLER_SERVICE = {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     getProductByCategoryIDController: function (req, res) {
-        logger.info(`${req.method} ${req.originalUrl}`);
+        logger.info(`${req.method} ${req.originalUrl}, fetching products/category/${req.params.id}`);
         database.query(QUERY_SERVICE.getProductsByCategoryIDQuery(), [req.params.id], (error, results) => {
             if (error) {
                 let status = HttpStatus.INTERNAL_SERVER_ERROR.code;
@@ -205,7 +204,7 @@ const CONTROLLER_SERVICE = {
                 let response = new Response(
                     HttpStatus.OK.code,
                     HttpStatus.OK.status,
-                    `Get All Successfully`,
+                    `Get All Successfully: products by category_id`,
                     results
                 );
                 res.status(status).send(response);
@@ -238,7 +237,7 @@ const CONTROLLER_SERVICE = {
             // Fetch child results for both order products and order des products
             await Promise.all(
                 parentResults.map(async (item) => {
-                    let order_prod = ENTITIES.Order_Prod_Details;
+                    let order_prod = ENTITIES.Order_Prod_Detail_View;
                     const productsPromise = new Promise((resolve, reject) => {
                         database.query(
                             QUERY_SERVICE.getItemQuery(order_prod.TABLE_NAME, order_prod.PRIMARY_KEY),
@@ -255,7 +254,14 @@ const CONTROLLER_SERVICE = {
                                 // Assuming childResults is an array of results
                                 const formattedResults = childResults.map((prod) => ({
                                     prod_id: prod.prod_id,
-                                    prod_quantity: prod.prod_quantity,
+                                    quantity: prod.prod_quantity,
+                                    name: prod.name,
+                                    image: prod.image,
+                                    price: prod.price,
+                                    originPrice: prod.originPrice,
+                                    type: prod.type,
+                                    shape: prod.shape,
+                                    flavour: prod.flavour,
                                 }));
                                 resolve(formattedResults);
                             }
@@ -340,7 +346,7 @@ const CONTROLLER_SERVICE = {
             // Fetch child results for both order products and order des products
             await Promise.all(
                 parentResults.map(async (item) => {
-                    let order_prod = ENTITIES.Order_Prod_Details;
+                    let order_prod = ENTITIES.Order_Prod_Detail_View;
                     const productsPromise = new Promise((resolve, reject) => {
                         database.query(
                             QUERY_SERVICE.getItemQuery(order_prod.TABLE_NAME, order_prod.PRIMARY_KEY),

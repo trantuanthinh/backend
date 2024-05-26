@@ -1,4 +1,3 @@
-//done
 const QUERY_SERVICE = {
     getAllQuery: function (tableName) {
         return `SELECT * FROM \`${tableName}\``;

@@ -1,4 +1,3 @@
-//done
 const ENTITIES = {
     // done admins
     Admins: {
@@ -32,7 +31,14 @@ const ENTITIES = {
     Decors: {
         TABLE_NAME: `decors`,
         PRIMARY_KEY: `decor_id`,
-        COLUMN_NAME: [`description`, `price`],
+        COLUMN_NAME: [`decor_category_id`, `description`, `price`],
+    },
+
+    // done decor_categories
+    Decor_Categories: {
+        TABLE_NAME: `decor_categories`,
+        PRIMARY_KEY: `decor_category_id`,
+        COLUMN_NAME: [`type`],
     },
 
     // done des_products
@@ -129,6 +135,18 @@ const ENTITIES = {
     Products_View: {
         TABLE_NAME: `products_view`,
         PRIMARY_KEY: `prod_id`,
+    },
+
+    // done orders_view
+    Orders_View: {
+        TABLE_NAME: `orders_view`,
+        PRIMARY_KEY: `order_id`,
+    },
+
+    // done order_prod_detail_view
+    Order_Prod_Detail_View: {
+        TABLE_NAME: `order_prod_detail_view`,
+        PRIMARY_KEY: `order_id`,
     },
 };
 
