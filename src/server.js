@@ -2,9 +2,11 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import wifi from "node-wifi";
 import os from "os";
 import path from "path";
 import url from "url";
+
 import Response from "./domain/response.js";
 import HttpStatus from "./util/HttpStatus.js";
 import logger from "./util/logger.js";
@@ -17,12 +19,16 @@ import decorsRoutes from "./router/decors.router.js";
 import des_productsRoutes from "./router/des_products.router.js";
 import flavoursRoutes from "./router/flavours.router.js";
 import inventoriesRoutes from "./router/inventories.router.js";
-import order_detailsRoutes from "./router/order_details.router.js";
 import ordersRoutes from "./router/orders.router.js";
 import prodPhotosRoutes from "./router/prodPhotos.router.js";
 import productsRoutes from "./router/products.router.js";
 import shapesRoutes from "./router/shapes.router.js";
 import sizesRoutes from "./router/sizes.router.js";
+import totalRoutes from "./router/total.router.js";
+
+wifi.init({
+    iface: null,
+});
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,17 +40,29 @@ const app = express();
 
 global.__baseURL = `localhost:3000`;
 
-const networkInterfaces = os.networkInterfaces();
-const wifiInterface = networkInterfaces["Wi-Fi"];
-app.listen(PORT, () => {
-    if (wifiInterface) {
-        const wifiIPAddress = wifiInterface.find((netInterface) => netInterface.family === "IPv4").address;
-        global.__baseURL = `${wifiIPAddress}:${PORT}`;
-        logger.info(`Server is running on baseURL: ${__baseURL}`);
-    } else {
-        logger.info(`Not Found IP Wireless LAN adapter Wi-fi`);
+app.listen(PORT, async () => {
+    try {
+        const wifiInterface = os.networkInterfaces()["Wi-Fi"] || os.networkInterfaces()["wlan0"];
+
+        if (wifiInterface) {
+            const wifiIPAddress = wifiInterface.find((netInterface) => netInterface.family === "IPv4").address;
+            global.__baseURL = `${wifiIPAddress}:${PORT}`;
+
+            const currentConnections = await wifi.getCurrentConnections();
+            if (currentConnections.length > 0) {
+                const wifiSSID = currentConnections[0].bssid;
+                logger.info(`Connected to Wi-Fi network: ${wifiSSID}`);
+            } else {
+                logger.info(`Not connected to any Wi-Fi network.`);
+            }
+
+            logger.info(`Server is running on baseURL: ${global.__baseURL}`);
+        } else {
+            logger.info(`Not Found IP Wireless LAN adapter Wi-Fi`);
+        }
+    } catch (error) {
+        logger.error(`Error occurred: ${error.message}`);
     }
-    logger.info(`Global Version: ${process.env.GLOBAL_VERSION}`);
 });
 
 app.use(cors({ origin: "*" }));
@@ -62,11 +80,12 @@ app.use("/api/decors", decorsRoutes);
 app.use("/api/des_products", des_productsRoutes);
 app.use("/api/flavours", flavoursRoutes);
 app.use("/api/inventories", inventoriesRoutes);
-app.use("/api/order_details", order_detailsRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/shapes", shapesRoutes);
 app.use("/api/sizes", sizesRoutes);
+
+app.use("/api/total", totalRoutes);
 
 app.all("*", (req, res) =>
     res

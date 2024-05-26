@@ -1,41 +1,47 @@
-//done
 const ENTITIES = {
-    //1. done admins
+    // done admins
     Admins: {
         TABLE_NAME: `admins`,
         PRIMARY_KEY: `ad_id`,
         COLUMN_NAME: [`user_name`, `password`, `first_name`, `last_name`, `phone`, `email`],
     },
 
-    //2. done categories
+    // done categories
     Categories: {
         TABLE_NAME: `categories`,
         PRIMARY_KEY: `category_id`,
         COLUMN_NAME: [`type`, `price`],
     },
 
-    //3. done customers
+    // done customers
     Customers: {
         TABLE_NAME: `customers`,
         PRIMARY_KEY: `cus_id`,
         COLUMN_NAME: [`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`],
     },
 
-    //4. done decor_details
+    // done decor_details
     Decor_Details: {
         TABLE_NAME: `decor_details`,
         PRIMARY_KEY: `decor_detail_id`,
         COLUMN_NAME: [`decor_id`, `unit_price`, `quantity`, `total_price`],
     },
 
-    //5. done decors
+    // done decors
     Decors: {
         TABLE_NAME: `decors`,
         PRIMARY_KEY: `decor_id`,
-        COLUMN_NAME: [`description`, `price`],
+        COLUMN_NAME: [`decor_category_id`, `description`, `price`],
     },
 
-    //6. done des_products
+    // done decor_categories
+    Decor_Categories: {
+        TABLE_NAME: `decor_categories`,
+        PRIMARY_KEY: `decor_category_id`,
+        COLUMN_NAME: [`type`],
+    },
+
+    // done des_products
     Des_Products: {
         TABLE_NAME: `des_products`,
         PRIMARY_KEY: `des_prod_id`,
@@ -51,40 +57,35 @@ const ENTITIES = {
         ],
     },
 
-    //7. done flavours
+    // done flavours
     Flavours: {
         TABLE_NAME: `flavours`,
         PRIMARY_KEY: `flavour_id`,
         COLUMN_NAME: [`flavour`, `price`],
     },
 
-    //8. done inventories
-    // Inventories: {
-    //     TABLE_NAME: `inventories`,
-    //     PRIMARY_KEY: `inventory_id`,
-    //     COLUMN_NAME: [`prod_id`, `quantity`],
-    // },
+    // done order_des_prod_details
+    Order_Des_Prod_Details: {
+        TABLE_NAME: `order_des_prod_details`,
+        PRIMARY_KEY: `order_id`,
+        COLUMN_NAME: [`des_prod_quantity`],
+    },
 
-    //9. done order_details
-    // Order_Details: {
-    //     TABLE_NAME: `order_details`,
-    //     PRIMARY_KEY: `order_detail_id`,
-    //     COLUMN_NAME: [
-    //         `prod_id`,
-    //         `prod_quantity`,
-    //         `des_prod_id`,
-    //         `des_prod_quantity`,
-    //     ],
-    // },
+    // done order_prod_details
+    Order_Prod_Details: {
+        TABLE_NAME: `order_prod_details`,
+        PRIMARY_KEY: `order_id`,
+        COLUMN_NAME: [`prod_quantity`],
+    },
 
-    //10. done orders
+    // done orders
     Orders: {
         TABLE_NAME: `orders`,
         PRIMARY_KEY: `order_id`,
-        COLUMN_NAME: [`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`],
+        COLUMN_NAME: [`cus_id`, `delivery_status`, `total_unit`, `total_origin_price`, `total_price`],
     },
 
-    //11. done products
+    // done products
     Products: {
         TABLE_NAME: `products`,
         PRIMARY_KEY: `prod_id`,
@@ -97,22 +98,55 @@ const ENTITIES = {
             `quantity`,
             `image`,
             `price`,
+            `originPrice`,
             `status`,
         ],
     },
 
-    //12. done shapes
+    // done shapes
     Shapes: {
         TABLE_NAME: `shapes`,
         PRIMARY_KEY: `shape_id`,
         COLUMN_NAME: [`shape`, `price`],
     },
 
-    //13. done sizes
+    // done sizes
     Sizes: {
         TABLE_NAME: `sizes`,
         PRIMARY_KEY: `size_id`,
         COLUMN_NAME: [`size`, `price`],
+    },
+
+    // done total
+    Total: {
+        TABLE_NAME: `total`,
+        PRIMARY_KEY: `total_id`,
+        COLUMN_NAME: [`total_price_daily`],
+    },
+
+    // done total_detail
+    Total_Detail: {
+        TABLE_NAME: `sizes`,
+        PRIMARY_KEY: [`total_id`, `order_id`],
+        COLUMN_NAME: [],
+    },
+
+    // done products_view
+    Products_View: {
+        TABLE_NAME: `products_view`,
+        PRIMARY_KEY: `prod_id`,
+    },
+
+    // done orders_view
+    Orders_View: {
+        TABLE_NAME: `orders_view`,
+        PRIMARY_KEY: `order_id`,
+    },
+
+    // done order_prod_detail_view
+    Order_Prod_Detail_View: {
+        TABLE_NAME: `order_prod_detail_view`,
+        PRIMARY_KEY: `order_id`,
     },
 };
 

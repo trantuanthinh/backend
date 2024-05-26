@@ -1,4 +1,3 @@
-//done
 const QUERY_SERVICE = {
     getAllQuery: function (tableName) {
         return `SELECT * FROM \`${tableName}\``;
@@ -39,18 +38,18 @@ const QUERY_SERVICE = {
         return `DELETE FROM ${tableName} WHERE ${keyName} = ?`;
     },
 
-    getProductDetailQuery: function (tableName) {
-        return `SELECT p.*, c.type AS category_type, c.price as category_price, sh.shape, sh.price as shape_price, si.price as size_price, f.flavour, f.price as flavour_price
-        FROM products AS p
-        INNER JOIN categories AS c ON p.category_id = c.category_id
-        INNER JOIN shapes AS sh ON p.shape_id = sh.shape_id
-        INNER JOIN sizes AS si ON p.size_id = si.size_id
-        INNER JOIN flavours AS f ON p.flavour_id = f.flavour_id
-        WHERE p.prod_id = ?`;
-    },
+    // getProductDetailQuery: function (tableName) {
+    //     return `SELECT p.*, c.type AS category_type, c.price as category_price, sh.shape, sh.price as shape_price, si.price as size_price, f.flavour, f.price as flavour_price
+    //     FROM products AS p
+    //     INNER JOIN categories AS c ON p.category_id = c.category_id
+    //     INNER JOIN shapes AS sh ON p.shape_id = sh.shape_id
+    //     INNER JOIN sizes AS si ON p.size_id = si.size_id
+    //     INNER JOIN flavours AS f ON p.flavour_id = f.flavour_id
+    //     WHERE p.prod_id = ?`;
+    // },
 
     getProductsByCategoryIDQuery: function () {
-        return `SELECT * FROM products WHERE category_id = ?`;
+        return `SELECT * FROM products_view WHERE category_id = ?`;
     },
 };
 
