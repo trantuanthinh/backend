@@ -262,15 +262,17 @@ CREATE TABLE IF NOT EXISTS `orders` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `delivery_status` VARCHAR(255) NOT NULL,
+    `active_status` VARCHAR(255) NOT NULL,
     `total_unit` DECIMAL(10,2) NOT NULL,
     `total_origin_price` DECIMAL(10,2) NOT NULL,
     `total_price` DECIMAL(10,2) NOT NULL,
-    CONSTRAINT `delivery_status` CHECK (`delivery_status` IN ('pending', 'delivering', 'delivered')),
+    CONSTRAINT `delivery_status_check` CHECK (`delivery_status` IN ('pending', 'delivering', 'delivered')),
+    CONSTRAINT `active_status_check` CHECK (`active_status` IN ('active', 'inactive')),
     PRIMARY KEY (`order_id`),
     FOREIGN KEY (`cus_id`) REFERENCES `customers`(`cus_id`)
 );
-INSERT INTO `orders` ( `cus_id`, `delivery_status`, `total_unit`,`total_origin_price`, `total_price`)
-VALUES ( 1, 'pending', 2, 32, 50);
+INSERT INTO `orders` ( `cus_id`, `delivery_status`, `active_status`,`total_unit`,`total_origin_price`, `total_price`)
+VALUES ( 1, 'pending', 'active', 2, 32, 50);
 -- INSERT INTO `orders` (`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`)
 -- VALUES (2, 2, 'Shipped', 1, 35.00);
 -- INSERT INTO `orders` (`order_detail_id`, `cus_id`, `delivery_status`, `total_unit`, `total_price`)

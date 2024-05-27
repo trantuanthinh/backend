@@ -237,7 +237,7 @@ const CONTROLLER_SERVICE = {
             // Fetch child results for both order products and order des products
             await Promise.all(
                 parentResults.map(async (item) => {
-                    let order_prod = ENTITIES.Order_Prod_Detail_View;
+                    let order_prod = ENTITIES.Order_Prod_Details;
                     const productsPromise = new Promise((resolve, reject) => {
                         database.query(
                             QUERY_SERVICE.getItemQuery(order_prod.TABLE_NAME, order_prod.PRIMARY_KEY),
@@ -254,14 +254,7 @@ const CONTROLLER_SERVICE = {
                                 // Assuming childResults is an array of results
                                 const formattedResults = childResults.map((prod) => ({
                                     prod_id: prod.prod_id,
-                                    quantity: prod.prod_quantity,
-                                    name: prod.name,
-                                    image: prod.image,
-                                    price: prod.price,
-                                    originPrice: prod.originPrice,
-                                    type: prod.type,
-                                    shape: prod.shape,
-                                    flavour: prod.flavour,
+                                    prod_quantity: prod.prod_quantity,
                                 }));
                                 resolve(formattedResults);
                             }
@@ -362,7 +355,14 @@ const CONTROLLER_SERVICE = {
 
                                 const formattedResults = childResults.map((prod) => ({
                                     prod_id: prod.prod_id,
-                                    prod_quantity: prod.prod_quantity,
+                                    quantity: prod.prod_quantity,
+                                    name: prod.name,
+                                    image: prod.image,
+                                    price: prod.price,
+                                    originPrice: prod.originPrice,
+                                    type: prod.type,
+                                    shape: prod.shape,
+                                    flavour: prod.flavour,
                                 }));
                                 resolve(formattedResults);
                             }
@@ -404,7 +404,7 @@ const CONTROLLER_SERVICE = {
                 HttpStatus.OK.code,
                 HttpStatus.OK.status,
                 `Get All Successfully: ${entity.TABLE_NAME}`,
-                parentResults
+                parentResults[0]
             );
             res.status(status).send(response);
         } catch (error) {
