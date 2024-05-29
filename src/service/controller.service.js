@@ -78,7 +78,6 @@ const CONTROLLER_SERVICE = {
 
     createItem: function (entity, req, res) {
         logger.info(`${req.method} ${req.originalUrl}, creating ${entity.TABLE_NAME}`);
-        console.log(QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME));
         database.query(
             QUERY_SERVICE.createItemQuery(entity.TABLE_NAME, entity.COLUMN_NAME),
             Object.values(req.body),
@@ -183,7 +182,6 @@ const CONTROLLER_SERVICE = {
     },
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     getProductByCategoryIDController: function (req, res) {
         logger.info(`${req.method} ${req.originalUrl}, fetching products/category/${req.params.id}`);
         database.query(QUERY_SERVICE.getProductsByCategoryIDQuery(), [req.params.id], (error, results) => {
@@ -417,6 +415,34 @@ const CONTROLLER_SERVICE = {
             res.status(status).send(response);
         }
     },
+
+    // getDecorByCategory: function (req, res) {
+    //     logger.info(`${req.method} ${req.originalUrl}, fetching decors/type/${req.params.id}`);
+    //     database.query(QUERY_SERVICE.getDecorByCategoryQuery(), [req.params.id], (error, results) => {
+    //         if (error) {
+    //             let status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+    //             let response = new Response(
+    //                 HttpStatus.INTERNAL_SERVER_ERROR.code,
+    //                 HttpStatus.INTERNAL_SERVER_ERROR.status,
+    //                 error.message
+    //             );
+    //             res.status(status).send(response);
+    //         } else if (!results || results.length === 0) {
+    //             let status = HttpStatus.OK.code;
+    //             let response = new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Not found`);
+    //             res.status(status).send(response);
+    //         } else {
+    //             let status = HttpStatus.OK.code;
+    //             let response = new Response(
+    //                 HttpStatus.OK.code,
+    //                 HttpStatus.OK.status,
+    //                 `Get All Successfully: decor by decor_category_id`,
+    //                 results
+    //             );
+    //             res.status(status).send(response);
+    //         }
+    //     });
+    // },
 };
 
 export default CONTROLLER_SERVICE;

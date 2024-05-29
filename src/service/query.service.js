@@ -51,6 +51,10 @@ const QUERY_SERVICE = {
     getProductsByCategoryIDQuery: function () {
         return `SELECT * FROM products_view WHERE category_id = ?`;
     },
+
+    // getDecorByCategoryQuery: function () {
+    //     return `SELECT * FROM decors_view WHERE type = ?`;
+    // },
 };
 
 export default QUERY_SERVICE;

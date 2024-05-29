@@ -63,21 +63,19 @@ CREATE TABLE IF NOT EXISTS `decors` (
     `price` DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (`decor_id`)
 );
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1,'Alphabet', "alphabet_candle.jpg", 4);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1,'Avocado', "avocado.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1,'Avocado2', "avocado2.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1,'Blueberry', "blueberry.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2,'Bear', "bear.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2,'Bear2', "bear2.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (4,'Boy', "boy.jpg", 3);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (4,'Circle', "circle.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (4,'Designed_cake', "designed_cake.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2,'Duck', "duck.jpg", 2);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3,'Girl', "girl.jpg", 3);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3,'Grandfather', "grandfather.jpg", 3);
-INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3,'Grandfather2', "grandfather2.jpg", 3);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (4, 'Alphabet', "alphabet_candle.jpg", 4);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1, 'Avocado', "avocado.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1, 'Avocado2', "avocado2.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (1, 'Blueberry', "blueberry.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2, 'Bear', "bear.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2, 'Bear2', "bear2.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3, 'Boy', "boy.jpg", 3);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (2, 'Duck', "duck.jpg", 2);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3, 'Girl', "girl.jpg", 3);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3, 'Grandfather', "grandfather.jpg", 3);
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3, 'Grandfather2', "grandfather2.jpg", 3);
 INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3,'Grandmother', "grandmother.jpg", 3);
-
+INSERT INTO `decors` (`decor_category_id`,`name`, `image`, `price`) VALUES (3,'Grandmother2', "grandmother2.jpg", 3);
 -- init table sizes: DONE
 CREATE TABLE IF NOT EXISTS `sizes` (
     `size_id` INT NOT NULL AUTO_INCREMENT,
@@ -171,7 +169,7 @@ VALUES (1, 1, 2, 1, 'Stars Cake', 4, 'Stars-Cake.webp', "15", "8", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (1, 1, 3, 1, 'Weeding Cake', 2, 'Weeding-Cake.webp', "60", "40", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
-VALUES (1, 1, 3, 1, 'Pink Rabit Cake', 7, 'Pink-Rabit-Cake.webp', "25", "15", "active");
+VALUES (1, 1, 3, 1, 'Pink Rabit Cake', 7, 'PinkRabit-Cake.webp', "25", "15", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (1, 1, 3, 1, 'Carrot Dog Cake', 4, 'Carrot-Dog-Cake.webp', "25", "17", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
@@ -238,14 +236,14 @@ CREATE TABLE IF NOT EXISTS `des_products` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `name` VARCHAR(255) NOT NULL,
     `price` DECIMAL(10,2) NOT NULL,
+    `shape_id` INT NOT NULL,
+    `size_id` INT NOT NULL,
+    `flavour_id` INT NOT NULL,
     PRIMARY KEY (`des_prod_id`),
     FOREIGN KEY (`cus_id`) REFERENCES `customers`(`cus_id`),
     FOREIGN KEY (`category_id`) REFERENCES `categories`(`category_id`),
     FOREIGN KEY (`shape_id`) REFERENCES `shapes`(`shape_id`),
     FOREIGN KEY (`size_id`) REFERENCES `sizes`(`size_id`),
-    `shape_id` INT NOT NULL,
-    `size_id` INT NOT NULL,
-    `flavour_id` INT NOT NULL,
     FOREIGN KEY (`flavour_id`) REFERENCES `flavours`(`flavour_id`)
 );
 -- INSERT INTO `des_products` (`cus_id`, `sdecor_detail_id`, `category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
@@ -372,3 +370,12 @@ CREATE VIEW `order_prod_detail_view` AS
         `sizes` AS `si` ON `p`.`size_id` = `si`.`size_id`
             INNER JOIN
         `flavours` AS `f` ON `p`.`flavour_id` = `f`.`flavour_id`;
+
+CREATE VIEW `decors_view` AS
+    SELECT
+        `de`.*,
+        `decate`.`type`
+    FROM
+        `decors` AS `de`
+            INNER JOIN
+        `decor_categories` AS `decate` ON `de`.`decor_category_id` = `decate`.`decor_category_id`;

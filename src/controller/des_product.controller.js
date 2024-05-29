@@ -10,6 +10,7 @@ export const getDes_Product = (req, res) => {
 };
 
 export const createDes_Product = (req, res) => {
+    console.log(11);
     CONTROLLER_SERVICE.createItem(ENTITIES.Des_Products, req, res);
 };
 

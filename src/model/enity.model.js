@@ -47,7 +47,7 @@ const ENTITIES = {
         PRIMARY_KEY: `des_prod_id`,
         COLUMN_NAME: [
             `cus_id`,
-            `decor_detail_id`,
+            // `decor_detail_id`, //tách tabled
             `category_id`,
             `size_id`,
             `shape_id`,
@@ -82,7 +82,14 @@ const ENTITIES = {
     Orders: {
         TABLE_NAME: `orders`,
         PRIMARY_KEY: `order_id`,
-        COLUMN_NAME: [`cus_id`, `delivery_status`, `total_unit`, `total_origin_price`, `total_price`],
+        COLUMN_NAME: [
+            `cus_id`,
+            `delivery_status`,
+            `active_status`,
+            `total_unit`,
+            `total_origin_price`,
+            `total_price`,
+        ],
     },
 
     // done products
@@ -147,6 +154,12 @@ const ENTITIES = {
     Order_Prod_Detail_View: {
         TABLE_NAME: `order_prod_detail_view`,
         PRIMARY_KEY: `order_id`,
+    },
+
+    // done decors_view
+    Decors_View: {
+        TABLE_NAME: `decors_view`,
+        PRIMARY_KEY: `decor_id`,
     },
 };
 
