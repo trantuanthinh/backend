@@ -343,7 +343,7 @@ INSERT INTO `shapes` (`shape`, `price`) VALUES ('Rectangle', 12);
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (1, 1, 2, 1, 'Candy Cake', 15, 'Candy-Cake.webp', "12", "9", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
-VALUES (1, 1, 3, 1, 'Orange-Cake', 10, 'Orange-Cake.webp', "21", "18", "active");
+VALUES (1, 1, 3, 1, 'Orange Cake', 10, 'Orange-Cake.webp', "21", "18", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (1, 1, 2, 1, 'Animal Cake', 5, 'Animal-Cake.webp', "16", "10", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
@@ -375,7 +375,7 @@ VALUES (1, 1, 2, 1, 'Blue Cake', 1, 'Blue-Cake.webp', "10", "5", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (1, 1, 3, 1, 'Lovely Cake', 4, 'Lovely-Cake.webp', "45", "20", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
-VALUES (1, 1, 3, 1, 'Vanni Cake', 12, 'Lovely-Cake.webp', "3", "1", "active");
+VALUES (2, 1, 3, 1, 'Vanni Cookie', 12, 'Vanni-Cookie.webp', "3", "1", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
 VALUES (2, 1, 1, 1, 'Four Types Cookie', 20, 'Four-Types-Cookie.webp', "2", "0.2", "active");
 INSERT INTO `products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `quantity`, `image`, `price`, `originPrice`, `status`)
