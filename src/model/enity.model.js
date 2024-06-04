@@ -48,6 +48,13 @@ const ENTITIES = {
         COLUMN_NAME: [`category_id`, `size_id`, `shape_id`, `flavour_id`, `name`, `price`],
     },
 
+    // done decor_des_prod_details
+    Decor_Des_Products_Details: {
+        TABLE_NAME: `decor_des_prod_details`,
+        PRIMARY_KEY: `des_prod_id`,
+        COLUMN_NAME: [`des_prod_id`, `decor_id`, `quantity`],
+    },
+
     // done flavours
     Flavours: {
         TABLE_NAME: `flavours`,

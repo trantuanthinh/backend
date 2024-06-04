@@ -9,8 +9,11 @@ export const getDes_Product = (req, res) => {
     CONTROLLER_SERVICE.getItem(ENTITIES.Des_Products, req, res);
 };
 
+export const getLastDes_Product = (req, res) => {
+    CONTROLLER_SERVICE.getLastItem(ENTITIES.Des_Products, req, res);
+};
+
 export const createDes_Product = (req, res) => {
-    console.log(11);
     CONTROLLER_SERVICE.createItem(ENTITIES.Des_Products, req, res);
 };
 
