@@ -107,6 +107,12 @@ const ENTITIES = {
         PRIMARY_KEY: `prod_id`,
     },
 
+    // done des_products_view
+    Des_Products_View: {
+        TABLE_NAME: `des_products_view`,
+        PRIMARY_KEY: `des_prod_id`,
+    },
+
     // done orders_view
     Orders_View: {
         TABLE_NAME: `orders_view`,

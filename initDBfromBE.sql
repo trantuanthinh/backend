@@ -230,6 +230,28 @@ CREATE OR REPLACE VIEW `products_view` AS
         `sizes` AS `si` ON `p`.`size_id` = `si`.`size_id`
             INNER JOIN
         `flavours` AS `f` ON `p`.`flavour_id` = `f`.`flavour_id`;
+-- init view des_products_view: DONE
+CREATE OR REPLACE VIEW `des_products_view` AS
+    SELECT
+        `des`.*,
+        `c`.`type` AS `category_type`,
+        `c`.`price` AS `category_price`,
+        `sh`.`shape`,
+        `sh`.`price` AS `shape_price`,
+        `si`.`size`,
+        `si`.`price` AS `size_price`,
+        `f`.`flavour`,
+        `f`.`price` AS `flavour_price`
+    FROM
+        `des_products` AS `des`
+            INNER JOIN
+        `categories` AS `c` ON `des`.`category_id` = `c`.`category_id`
+            INNER JOIN
+        `shapes` AS `sh` ON `des`.`shape_id` = `sh`.`shape_id`
+            INNER JOIN
+        `sizes` AS `si` ON `des`.`size_id` = `si`.`size_id`
+            INNER JOIN
+        `flavours` AS `f` ON `des`.`flavour_id` = `f`.`flavour_id`;
 -- init view orders_view: DONE
 CREATE OR REPLACE VIEW `orders_view` AS
     SELECT
