@@ -21,6 +21,6 @@ export const deleteProduct = (req, res) => {
     CONTROLLER_SERVICE.deleteItem(ENTITIES.Products, req, res);
 };
 
-export const getProductByCategoryID = (req, res) => {
-    CONTROLLER_SERVICE.getProductByCategoryIDController(req, res);
+export const getProductsByCategoryId = (req, res) => {
+    CONTROLLER_SERVICE.getProductsByCategoryId(ENTITIES.Products, req, res);
 };

@@ -3,15 +3,16 @@ import {
     createProduct,
     deleteProduct,
     getProduct,
-    getProductByCategoryID,
     getProducts,
-    updateProduct,
+    getProductsByCategoryId,
+    updateProduct
 } from "../controller/products.controller.js";
 
 const productsRoutes = express.Router();
 
 productsRoutes.route("/").get(getProducts).post(createProduct);
+productsRoutes.route("/category/:id").get(getProductsByCategoryId);
+
 productsRoutes.route("/:id").get(getProduct).put(updateProduct).delete(deleteProduct);
-productsRoutes.route("/category/:id").get(getProductByCategoryID);
 
 export default productsRoutes;

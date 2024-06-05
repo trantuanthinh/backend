@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
     `address` VARCHAR(255) NOT NULL,
     `gender` VARCHAR(255) NULL,
     `dateOfBirth` DATE NULL,
+    CONSTRAINT `gender_status_check` CHECK (`gender` IN ('male' , 'female')),
     PRIMARY KEY (`cus_id`)
 );
 -- init table decor_categories: DONE
@@ -412,8 +413,18 @@ VALUES (3, 1, 1, 1, 'Joker Macaron', 20, 'Joker-Macaron.webp', "6", "3", "active
 
 
 
+INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
+VALUES (1, 1, 1, 1, 'Designed Cake', 20);
+
+
+
 INSERT INTO `decor_prod_details` (`prod_id`, `decor_id`, `quantity`) VALUES (1, 2, 3);
 INSERT INTO `decor_prod_details` (`prod_id`, `decor_id`, `quantity`) VALUES (1, 4, 5);
+
+
+
+INSERT INTO `decor_des_prod_details` (`des_prod_id`, `decor_id`, `quantity`) VALUES (1, 1, 1);
+INSERT INTO `decor_des_prod_details` (`des_prod_id`, `decor_id`, `quantity`) VALUES (1, 2, 1);
 
 
 

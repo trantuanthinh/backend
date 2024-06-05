@@ -60,9 +60,11 @@ const CONTROLLER_SERVICE = {
     },
 
     createItem: function (entity, req, res) {
-        const { TABLE_NAME, COLUMN_NAME } = entity;
-        const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAME);
+        const { TABLE_NAME } = entity;
+        const COLUMN_NAMES = Object.keys(req.body);
         const values = Object.values(req.body);
+        const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAMES);
+        console.log(query);
 
         logger.info(`${req.method} ${req.originalUrl}, creating ${TABLE_NAME}`);
 
@@ -76,8 +78,8 @@ const CONTROLLER_SERVICE = {
                 const response = new Response(
                     status,
                     HttpStatus.CREATED.status,
-                    `Created Item Successfully: ${TABLE_NAME}`,
-                    result[0]
+                    `Created ${TABLE_NAME} Successfully`,
+                    result
                 );
                 res.status(status).send(response);
             }
@@ -85,10 +87,11 @@ const CONTROLLER_SERVICE = {
     },
 
     updateItem: function (entity, req, res) {
-        const { TABLE_NAME, PRIMARY_KEY, COLUMN_NAME } = entity;
-        const { id } = req.params;
-        const query = QUERY_SERVICE.updateItemQuery(TABLE_NAME, PRIMARY_KEY, COLUMN_NAME);
+        const { TABLE_NAME, PRIMARY_KEY } = entity;
+        const id = req.params.id;
+        const COLUMN_NAMES = Object.keys(req.body);
         const values = [...Object.values(req.body), id];
+        const query = QUERY_SERVICE.updateItemQuery(TABLE_NAME, PRIMARY_KEY, COLUMN_NAMES);
 
         logger.info(`${req.method} ${req.originalUrl}, updating ${TABLE_NAME}`);
 
@@ -155,7 +158,7 @@ const CONTROLLER_SERVICE = {
 
     getItemValues: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
-        const { id } = req.params;
+        const id = req.params.id;
         const query = QUERY_SERVICE.getItemQuery(TABLE_NAME, PRIMARY_KEY);
 
         logger.info(`${req.method} ${req.originalUrl}, fetching ${TABLE_NAME}/${id}`);
@@ -183,28 +186,30 @@ const CONTROLLER_SERVICE = {
     },
 
     createItemValues: function (entity, req, res) {
-        const { TABLE_NAME, COLUMN_NAME } = entity;
-        const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAME);
+        const { TABLE_NAME } = entity;
+        const COLUMN_NAME = Object.keys(req.body);
         const values = [...Object.values(req.body), id];
-
+        const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAME);
+        console.log(query);
+        console.log(values);
         logger.info(`${req.method} ${req.originalUrl}, creating ${TABLE_NAME}`);
 
-        database.query(query, values, (error, result) => {
-            if (error) {
-                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-                res.status(status).send(response);
-            } else {
-                const status = HttpStatus.CREATED.code;
-                const response = new Response(
-                    status,
-                    HttpStatus.CREATED.status,
-                    `Created Item Successfully: ${TABLE_NAME}`,
-                    result[0]
-                );
-                res.status(status).send(response);
-            }
-        });
+        // database.query(query, values, (error, result) => {
+        //     if (error) {
+        //         const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+        //         const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+        //         res.status(status).send(response);
+        //     } else {
+        //         const status = HttpStatus.CREATED.code;
+        //         const response = new Response(
+        //             status,
+        //             HttpStatus.CREATED.status,
+        //             `Created Item Successfully: ${TABLE_NAME}`,
+        //             result[0]
+        //         );
+        //         res.status(status).send(response);
+        //     }
+        // });
     },
 
     getLastItem: function (entity, req, res) {
@@ -237,27 +242,52 @@ const CONTROLLER_SERVICE = {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    getProductsByCategoryId: async function (req, res) {
-        const { id } = req.params;
-        const query = QUERY_SERVICE.getProductsByCategoryIdQuery();
+    getProductsByCategoryId: function (entity, req, res) {
+        const { TABLE_NAME } = entity;
+        const id = req.params.id;
+        const query = QUERY_SERVICE.getProductsByCategoryIdQuery(TABLE_NAME);
 
-        try {
-            const products = await database.query(query, [id]);
+        logger.info(`${req.method} ${req.originalUrl}, fetching ${TABLE_NAME}`);
 
-            const status = HttpStatus.OK.code;
-            const response = new Response(
-                status,
-                HttpStatus.OK.status,
-                `Get All Successfully: products by category id`,
-                products
-            );
-            res.status(status).send(response);
-        } catch (error) {
-            const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-            const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-            res.status(status).send(response);
-        }
+        database.query(query, [id], (error, results) => {
+            if (error) {
+                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+                res.status(status).send(response);
+            } else {
+                const status = HttpStatus.OK.code;
+                const response = new Response(
+                    status,
+                    HttpStatus.OK.status,
+                    `Get All Successfully: products by category id`,
+                    results
+                );
+                res.status(status).send(response);
+            }
+        });
     },
+
+    // getProductsByCategoryId: async function (req, res) {
+    //     const { id } = req.params;
+    //     const query = QUERY_SERVICE.getProductsByCategoryIdQuery();
+
+    //     try {
+    //         const products = database.query(query, [id]);
+
+    //         const status = HttpStatus.OK.code;
+    //         const response = new Response(
+    //             status,
+    //             HttpStatus.OK.status,
+    //             `Get All Successfully: products by category id`,
+    //             products
+    //         );
+    //         res.status(status).send(response);
+    //     } catch (error) {
+    //         const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+    //         const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+    //         res.status(status).send(response);
+    //     }
+    // },
 
     getOrders: async function (entity, req, res) {
         logger.info(`${req.method} ${req.originalUrl}, fetching table ${entity.TABLE_NAME}`);
