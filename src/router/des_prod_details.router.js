@@ -9,11 +9,12 @@ import {
 
 const des_prod_detailsRoutes = express.Router();
 
-des_prod_detailsRoutes.route("/").get(getDes_Products_Details).post(createDes_Product_Details);
+des_prod_detailsRoutes.route("/").get(getDes_Products_Details);
 
 des_prod_detailsRoutes
     .route("/:id")
     .get(getDes_Product_Details)
+    .post(createDes_Product_Details)
     .put(updateDes_Product_Details)
     .delete(deleteDes_Product_Details);
 

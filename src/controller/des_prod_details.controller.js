@@ -14,7 +14,7 @@ export const getLastDes_Product_Details = (req, res) => {
 };
 
 export const createDes_Product_Details = (req, res) => {
-    CONTROLLER_SERVICE.createItem(ENTITIES.Decor_Des_Products_Details, req, res);
+    CONTROLLER_SERVICE.createItemValues(ENTITIES.Decor_Des_Products_Details, req, res);
 };
 
 export const updateDes_Product_Details = (req, res) => {

@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `first_name` VARCHAR(255) NOT NULL,
     `last_name` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
     `phone` VARCHAR(20) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `address` VARCHAR(255) NOT NULL,
@@ -280,12 +281,12 @@ INSERT INTO `admins` (`user_name`, `password`, `first_name`, `last_name`, `phone
 
 
 
-INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
-VALUES ('Trần Tuấn', 'Thịnh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-11-05');
-INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
-VALUES ('Nguyen Minh', 'Nguyen', '234567891', 'nguyen.nguyen.cit22@gmail.com', 'Bình Dương', 'female', '2002-01-01');
-INSERT INTO `customers` (`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
-VALUES ('Trần Tuấn', 'Thịnh', '345678912', 'my.tran.cit22@gmail.com', 'Bình Dương', 'female', '2000-09-09');
+INSERT INTO `customers` (`first_name`, `last_name`, `password`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Trần Tuấn', 'Thịnh', 'trantuanthinh', '0123456789', 'thinh.tran.cit20@eiu.edu.vn', 'Bình Dương', 'male', '2002-11-05');
+INSERT INTO `customers` (`first_name`, `last_name`, `password`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Nguyen Minh', 'Nguyen', 'nguyenminhnguyen', '234567891', 'nguyen.nguyen.cit22@gmail.com', 'Bình Dương', 'female', '2002-01-01');
+INSERT INTO `customers` (`first_name`, `last_name`, `password`, `phone`, `email`, `address`, `gender`, `dateOfBirth`)
+VALUES ('Vo Thi Tra', 'My', 'vothitramy', '345678912', 'my.tran.cit22@gmail.com', 'Bình Dương', 'female', '2000-09-09');
 
 
 

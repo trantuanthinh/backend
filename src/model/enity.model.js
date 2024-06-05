@@ -17,7 +17,7 @@ const ENTITIES = {
     Customers: {
         TABLE_NAME: `customers`,
         PRIMARY_KEY: `cus_id`,
-        COLUMN_NAME: [`first_name`, `last_name`, `phone`, `email`, `address`, `gender`, `dateOfBirth`],
+        COLUMN_NAME: [`first_name`, `last_name`, `password`, `phone`, `email`, `address`, `gender`, `dateOfBirth`],
     },
 
     // // done decor_details

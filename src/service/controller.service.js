@@ -182,6 +182,31 @@ const CONTROLLER_SERVICE = {
         });
     },
 
+    createItemValues: function (entity, req, res) {
+        const { TABLE_NAME, COLUMN_NAME } = entity;
+        const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAME);
+        const values = [...Object.values(req.body), id];
+
+        logger.info(`${req.method} ${req.originalUrl}, creating ${TABLE_NAME}`);
+
+        database.query(query, values, (error, result) => {
+            if (error) {
+                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+                res.status(status).send(response);
+            } else {
+                const status = HttpStatus.CREATED.code;
+                const response = new Response(
+                    status,
+                    HttpStatus.CREATED.status,
+                    `Created Item Successfully: ${TABLE_NAME}`,
+                    result[0]
+                );
+                res.status(status).send(response);
+            }
+        });
+    },
+
     getLastItem: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
         const query = QUERY_SERVICE.getLastItemQuery(TABLE_NAME, PRIMARY_KEY);
