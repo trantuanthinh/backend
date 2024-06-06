@@ -9,6 +9,10 @@ export const getCustomer = (req, res) => {
     CONTROLLER_SERVICE.getItem(ENTITIES.Customers, req, res);
 };
 
+// export const getCustomerByEmail = (req, res) => {
+//     CONTROLLER_SERVICE.getCustomerByEmail(ENTITIES.Customers, req, res);
+// };
+
 export const createCustomer = (req, res) => {
     CONTROLLER_SERVICE.createItem(ENTITIES.Customers, req, res);
 };

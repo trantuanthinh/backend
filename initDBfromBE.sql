@@ -118,6 +118,7 @@ CREATE TABLE IF NOT EXISTS `des_products` (
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `name` VARCHAR(255) NOT NULL,
+    `message` VARCHAR(255) NOT NULL,
     `price` DECIMAL(10 , 2 ) NOT NULL,
     PRIMARY KEY (`des_prod_id`),
     FOREIGN KEY (`category_id`)
@@ -435,8 +436,8 @@ VALUES (3, 1, 1, 1, 'Joker Macaron', 20, 'Joker-Macaron.webp', "6", "3", "active
 
 
 
-INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`, `price`)
-VALUES (1, 1, 1, 1, 'Designed Cake', 20);
+INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`)
+VALUES (1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20);
 
 
 

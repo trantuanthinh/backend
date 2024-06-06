@@ -32,7 +32,7 @@ const CONTROLLER_SERVICE = {
 
     getItem: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
-        const { id } = req.params;
+        const id = req.params.id;
         const query = QUERY_SERVICE.getItemQuery(TABLE_NAME, PRIMARY_KEY);
 
         logger.info(`${req.method} ${req.originalUrl}, fetching ${TABLE_NAME}/${id}`);
@@ -64,7 +64,6 @@ const CONTROLLER_SERVICE = {
         const COLUMN_NAMES = Object.keys(req.body);
         const values = Object.values(req.body);
         const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAMES);
-        console.log(query);
 
         logger.info(`${req.method} ${req.originalUrl}, creating ${TABLE_NAME}`);
 
@@ -185,6 +184,34 @@ const CONTROLLER_SERVICE = {
         });
     },
 
+    getLastItem: function (entity, req, res) {
+        const { TABLE_NAME, PRIMARY_KEY } = entity;
+        const query = QUERY_SERVICE.getLastItemQuery(TABLE_NAME, PRIMARY_KEY);
+
+        logger.info(`${req.method} ${req.originalUrl}, fetching last item ${TABLE_NAME}`);
+
+        database.query(query, (error, [result]) => {
+            if (error) {
+                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+                res.status(status).send(response);
+            } else if (!result) {
+                const status = HttpStatus.NOT_FOUND.code;
+                const response = new Response(status, HttpStatus.NOT_FOUND.status, `Not found: ${TABLE_NAME}`);
+                res.status(status).send(response);
+            } else {
+                const status = HttpStatus.OK.code;
+                const response = new Response(
+                    status,
+                    HttpStatus.OK.status,
+                    `Get Last Item Successfully: ${TABLE_NAME}`,
+                    result
+                );
+                res.status(status).send(response);
+            }
+        });
+    },
+
     createItemValues: async function (entity, req, res) {
         const { TABLE_NAME } = entity;
         const COLUMN_NAME = Object.keys(req.body);
@@ -224,36 +251,6 @@ const CONTROLLER_SERVICE = {
             res.status(status).send(response);
         }
     },
-
-
-    getLastItem: function (entity, req, res) {
-        const { TABLE_NAME, PRIMARY_KEY } = entity;
-        const query = QUERY_SERVICE.getLastItemQuery(TABLE_NAME, PRIMARY_KEY);
-
-        logger.info(`${req.method} ${req.originalUrl}, fetching last item ${TABLE_NAME}`);
-
-        database.query(query, (error, [result]) => {
-            if (error) {
-                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-                res.status(status).send(response);
-            } else if (!result) {
-                const status = HttpStatus.NOT_FOUND.code;
-                const response = new Response(status, HttpStatus.NOT_FOUND.status, `Not found: ${TABLE_NAME}`);
-                res.status(status).send(response);
-            } else {
-                const status = HttpStatus.OK.code;
-                const response = new Response(
-                    status,
-                    HttpStatus.OK.status,
-                    `Get Last Item Successfully: ${TABLE_NAME}`,
-                    result
-                );
-                res.status(status).send(response);
-            }
-        });
-    },
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     getProductsByCategoryId: function (entity, req, res) {
@@ -281,26 +278,33 @@ const CONTROLLER_SERVICE = {
         });
     },
 
-    // getProductsByCategoryId: async function (req, res) {
-    //     const { id } = req.params;
-    //     const query = QUERY_SERVICE.getProductsByCategoryIdQuery();
+    // getCustomerByEmail: function (entity, req, res) {
+    //     const { TABLE_NAME } = entity;
+    //     const id = req.params.id;
+    //     const query = QUERY_SERVICE.getCustomerByEmailQuery(TABLE_NAME);
 
-    //     try {
-    //         const products = database.query(query, [id]);
+    //     logger.info(`${req.method} ${req.originalUrl}, fetching ${TABLE_NAME}/${id}`);
 
-    //         const status = HttpStatus.OK.code;
-    //         const response = new Response(
-    //             status,
-    //             HttpStatus.OK.status,
-    //             `Get All Successfully: products by category id`,
-    //             products
-    //         );
-    //         res.status(status).send(response);
-    //     } catch (error) {
-    //         const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-    //         const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-    //         res.status(status).send(response);
-    //     }
+    //     database.query(query, [id], (error, [result]) => {
+    //         if (error) {
+    //             const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+    //             const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+    //             res.status(status).send(response);
+    //         } else if (!result) {
+    //             const status = HttpStatus.NOT_FOUND.code;
+    //             const response = new Response(status, HttpStatus.NOT_FOUND.status, `Not found: ${TABLE_NAME}`);
+    //             res.status(status).send(response);
+    //         } else {
+    //             const status = HttpStatus.OK.code;
+    //             const response = new Response(
+    //                 status,
+    //                 HttpStatus.OK.status,
+    //                 `Get Customer By Email Successfully: ${TABLE_NAME}`,
+    //                 result
+    //             );
+    //             res.status(status).send(response);
+    //         }
+    //     });
     // },
 
     getOrders: async function (entity, req, res) {

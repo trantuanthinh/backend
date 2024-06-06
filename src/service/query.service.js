@@ -50,6 +50,10 @@ const QUERY_SERVICE = {
         return `SELECT * FROM products_view WHERE category_id = ?`;
     },
 
+    // getCustomerByEmailQuery: function (tableName) {
+    //     return `SELECT * FROM \`${tableName}\` WHERE email = ?`;
+    // },
+
     // getDecorByCategoryQuery: function () {
     //     return `SELECT * FROM decors_view WHERE type = ?`;
     // },
