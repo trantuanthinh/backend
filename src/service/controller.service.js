@@ -185,32 +185,46 @@ const CONTROLLER_SERVICE = {
         });
     },
 
-    createItemValues: function (entity, req, res) {
+    createItemValues: async function (entity, req, res) {
         const { TABLE_NAME } = entity;
         const COLUMN_NAME = Object.keys(req.body);
-        const values = [...Object.values(req.body), id];
+        const values = [...Object.values(req.body)];
+        const transformedArray = [values[0], values[1].flat(), values[2]];
         const query = QUERY_SERVICE.createItemQuery(TABLE_NAME, COLUMN_NAME);
-        console.log(query);
-        console.log(values);
+
         logger.info(`${req.method} ${req.originalUrl}, creating ${TABLE_NAME}`);
 
-        // database.query(query, values, (error, result) => {
-        //     if (error) {
-        //         const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-        //         const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-        //         res.status(status).send(response);
-        //     } else {
-        //         const status = HttpStatus.CREATED.code;
-        //         const response = new Response(
-        //             status,
-        //             HttpStatus.CREATED.status,
-        //             `Created Item Successfully: ${TABLE_NAME}`,
-        //             result[0]
-        //         );
-        //         res.status(status).send(response);
-        //     }
-        // });
+        try {
+            const results = await Promise.all(
+                transformedArray[1].map(async (element) => {
+                    const inputValue = [transformedArray[0], element, transformedArray[2]];
+                    return await new Promise((resolve, reject) => {
+                        database.query(query, inputValue, (error, result) => {
+                            if (error) {
+                                reject(error);
+                            } else {
+                                resolve(result);
+                            }
+                        });
+                    });
+                })
+            );
+
+            const status = HttpStatus.CREATED.code;
+            const response = new Response(
+                status,
+                HttpStatus.CREATED.status,
+                `Created Item Values Successfully: ${TABLE_NAME}`,
+                results
+            );
+            res.status(status).send(response);
+        } catch (error) {
+            const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+            const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+            res.status(status).send(response);
+        }
     },
+
 
     getLastItem: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
