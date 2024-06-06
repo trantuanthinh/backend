@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
     `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     `delivery_status` VARCHAR(255) NOT NULL,
     `active_status` VARCHAR(255) NOT NULL,
-    `total_unit` DECIMAL(10 , 2 ) NOT NULL,
+    `total_unit` INT NOT NULL,
     `total_origin_price` DECIMAL(10 , 2 ) NOT NULL,
     `total_price` DECIMAL(10 , 2 ) NOT NULL,
     CONSTRAINT `delivery_status_check` CHECK (`delivery_status` IN ('pending' , 'delivering', 'delivered')),
