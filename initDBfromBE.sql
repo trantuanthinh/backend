@@ -438,6 +438,8 @@ VALUES (3, 1, 1, 1, 'Joker Macaron', 20, 'Joker-Macaron.webp', "6", "3", "active
 
 INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`)
 VALUES (1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20);
+INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`)
+VALUES (1, 1, 1, 1, 'Designed Cake 2','HappyBirthday 2', 40);
 
 
 
