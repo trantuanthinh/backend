@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     `price` DECIMAL(10 , 2 ) NOT NULL,
     `originPrice` DECIMAL(10 , 2 ) NOT NULL,
     `status` VARCHAR(8) NOT NULL,
-    CONSTRAINT `status_check` CHECK (`status` IN ('active' , 'inactive')),
+    CONSTRAINT `prod_status_check` CHECK (`status` IN ('active' , 'inactive')),
     PRIMARY KEY (`prod_id`),
     FOREIGN KEY (`category_id`)
         REFERENCES `categories` (`category_id`),
@@ -120,6 +120,8 @@ CREATE TABLE IF NOT EXISTS `des_products` (
     `name` VARCHAR(255) NOT NULL,
     `message` VARCHAR(255) NOT NULL,
     `price` DECIMAL(10 , 2 ) NOT NULL,
+    `status` VARCHAR(8) NOT NULL,
+    CONSTRAINT `des_prod_status_check` CHECK (`status` IN ('active' , 'inactive')),
     PRIMARY KEY (`des_prod_id`),
     FOREIGN KEY (`category_id`)
         REFERENCES `categories` (`category_id`),
@@ -436,10 +438,10 @@ VALUES (3, 1, 1, 1, 'Joker Macaron', 20, 'Joker-Macaron.webp', "6", "3", "active
 
 
 
-INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`)
-VALUES (1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20);
-INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`)
-VALUES (1, 1, 1, 1, 'Designed Cake 2','HappyBirthday 2', 40);
+INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
+VALUES (1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20,'active');
+INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
+VALUES (1, 1, 1, 1, 'Designed Cake 2','HappyBirthday 2', 40,'active');
 
 
 
