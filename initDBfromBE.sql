@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- init table des_products: DONE
 CREATE TABLE IF NOT EXISTS `des_products` (
     `des_prod_id` INT NOT NULL AUTO_INCREMENT,
+    `cus_id` INT NOT NULL,
     `category_id` INT NOT NULL,
     `shape_id` INT NOT NULL,
     `size_id` INT NOT NULL,
@@ -123,6 +124,8 @@ CREATE TABLE IF NOT EXISTS `des_products` (
     `status` VARCHAR(8) NOT NULL,
     CONSTRAINT `des_prod_status_check` CHECK (`status` IN ('active' , 'inactive')),
     PRIMARY KEY (`des_prod_id`),
+    FOREIGN KEY (`cus_id`)
+        REFERENCES `customers` (`cus_id`),
     FOREIGN KEY (`category_id`)
         REFERENCES `categories` (`category_id`),
     FOREIGN KEY (`shape_id`)
@@ -237,6 +240,8 @@ CREATE OR REPLACE VIEW `products_view` AS
 CREATE OR REPLACE VIEW `des_products_view` AS
     SELECT
         `des`.*,
+        `cus`.`first_name` AS `first_name`,
+        `cus`.`last_name` AS `last_name`,
         `c`.`type` AS `category_type`,
         `c`.`price` AS `category_price`,
         `sh`.`shape`,
@@ -247,6 +252,8 @@ CREATE OR REPLACE VIEW `des_products_view` AS
         `f`.`price` AS `flavour_price`
     FROM
         `des_products` AS `des`
+            INNER JOIN
+        `customers` AS `cus` ON `des`.`cus_id` = `cus`.`cus_id`
             INNER JOIN
         `categories` AS `c` ON `des`.`category_id` = `c`.`category_id`
             INNER JOIN
@@ -438,10 +445,10 @@ VALUES (3, 1, 1, 1, 'Joker Macaron', 20, 'Joker-Macaron.webp', "6", "3", "active
 
 
 
-INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
-VALUES (1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20,'active');
-INSERT INTO `des_products` (`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
-VALUES (1, 1, 1, 1, 'Designed Cake 2','HappyBirthday 2', 40,'active');
+INSERT INTO `des_products` (`cus_id`,`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
+VALUES (1,1, 1, 1, 1, 'Designed Cake','HappyBirthday', 20,'active');
+INSERT INTO `des_products` (`cus_id`,`category_id`, `shape_id`, `size_id`, `flavour_id`, `name`,`message`, `price`,`status`)
+VALUES (1,1, 1, 1, 1, 'Designed Cake 2','HappyBirthday 2', 40,'active');
 
 
 
