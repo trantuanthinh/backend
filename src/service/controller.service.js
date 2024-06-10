@@ -155,6 +155,7 @@ const CONTROLLER_SERVICE = {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // get many items of the table
     getItemValues: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
         const id = req.params.id;
@@ -184,6 +185,7 @@ const CONTROLLER_SERVICE = {
         });
     },
 
+    // get the last item of the table
     getLastItem: function (entity, req, res) {
         const { TABLE_NAME, PRIMARY_KEY } = entity;
         const query = QUERY_SERVICE.getLastItemQuery(TABLE_NAME, PRIMARY_KEY);
@@ -212,6 +214,7 @@ const CONTROLLER_SERVICE = {
         });
     },
 
+    // create the item of the table which has the n-n relationship
     createItemValues: async function (entity, req, res) {
         const { TABLE_NAME } = entity;
         const COLUMN_NAME = Object.keys(req.body);
@@ -252,6 +255,7 @@ const CONTROLLER_SERVICE = {
         }
     },
 
+    // delete the item of the table which has the FK in other tables
     deleteItemValues: async function (listEntity, entity, req, res) {
         console.log(req.params.id);
         const { TABLE_NAME, PRIMARY_KEY } = entity;
@@ -371,35 +375,6 @@ const CONTROLLER_SERVICE = {
             }
         });
     },
-
-    // getCustomerByEmail: function (entity, req, res) {
-    //     const { TABLE_NAME } = entity;
-    //     const id = req.params.id;
-    //     const query = QUERY_SERVICE.getCustomerByEmailQuery(TABLE_NAME);
-
-    //     logger.info(`${req.method} ${req.originalUrl}, fetching ${TABLE_NAME}/${id}`);
-
-    //     database.query(query, [id], (error, [result]) => {
-    //         if (error) {
-    //             const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-    //             const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
-    //             res.status(status).send(response);
-    //         } else if (!result) {
-    //             const status = HttpStatus.NOT_FOUND.code;
-    //             const response = new Response(status, HttpStatus.NOT_FOUND.status, `Not found: ${TABLE_NAME}`);
-    //             res.status(status).send(response);
-    //         } else {
-    //             const status = HttpStatus.OK.code;
-    //             const response = new Response(
-    //                 status,
-    //                 HttpStatus.OK.status,
-    //                 `Get Customer By Email Successfully: ${TABLE_NAME}`,
-    //                 result
-    //             );
-    //             res.status(status).send(response);
-    //         }
-    //     });
-    // },
 
     getOrders: async function (entity, req, res) {
         logger.info(`${req.method} ${req.originalUrl}, fetching table ${entity.TABLE_NAME}`);
@@ -606,34 +581,6 @@ const CONTROLLER_SERVICE = {
             res.status(status).send(response);
         }
     },
-
-    // getDecorByCategory: function (req, res) {
-    //     logger.info(`${req.method} ${req.originalUrl}, fetching decors/type/${req.params.id}`);
-    //     database.query(QUERY_SERVICE.getDecorByCategoryQuery(), [req.params.id], (error, results) => {
-    //         if (error) {
-    //             let status = HttpStatus.INTERNAL_SERVER_ERROR.code;
-    //             let response = new Response(
-    //                 HttpStatus.INTERNAL_SERVER_ERROR.code,
-    //                 HttpStatus.INTERNAL_SERVER_ERROR.status,
-    //                 error.message
-    //             );
-    //             res.status(status).send(response);
-    //         } else if (!results || results.length === 0) {
-    //             let status = HttpStatus.OK.code;
-    //             let response = new Response(HttpStatus.OK.code, HttpStatus.OK.status, `Not found`);
-    //             res.status(status).send(response);
-    //         } else {
-    //             let status = HttpStatus.OK.code;
-    //             let response = new Response(
-    //                 HttpStatus.OK.code,
-    //                 HttpStatus.OK.status,
-    //                 `Get All Successfully: decor by decor_category_id`,
-    //                 results
-    //             );
-    //             res.status(status).send(response);
-    //         }
-    //     });
-    // },
 };
 
 export default CONTROLLER_SERVICE;
