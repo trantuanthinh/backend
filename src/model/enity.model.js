@@ -98,7 +98,7 @@ const ENTITIES = {
     // done total_detail
     Total_Detail: {
         TABLE_NAME: `total_detail`,
-        PRIMARY_KEY: [`total_id`, `order_id`],
+        PRIMARY_KEY: `order_id`,
     },
 
     // done products_view

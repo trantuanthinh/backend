@@ -252,6 +252,56 @@ const CONTROLLER_SERVICE = {
         }
     },
 
+    deleteItemValues: async function (listEntity, entity, req, res) {
+        console.log(req.params.id);
+        const { TABLE_NAME, PRIMARY_KEY } = entity;
+        const id = req.params.id;
+        const query = QUERY_SERVICE.deleteItemQuery(TABLE_NAME, PRIMARY_KEY);
+
+        logger.info(`${req.method} ${req.originalUrl}, deleting ${TABLE_NAME}`);
+
+        listEntity.map(async (element) => {
+            const tempQuery = QUERY_SERVICE.deleteItemQuery(element.TABLE_NAME, element.PRIMARY_KEY);
+
+            logger.info(`${req.method} ${req.originalUrl}, deleting ${element.TABLE_NAME}`);
+
+            return await new Promise((resolve, reject) => {
+                database.query(tempQuery, [id], (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+        })
+
+        database.query(query, [[id]], (error, result) => {
+            if (error) {
+                const status = HttpStatus.INTERNAL_SERVER_ERROR.code;
+                const response = new Response(status, HttpStatus.INTERNAL_SERVER_ERROR.status, error.message);
+                res.status(status).send(response);
+            } else if (result.affectedRows > 0) {
+                const status = HttpStatus.OK.code;
+                const response = new Response(
+                    status,
+                    HttpStatus.OK.status,
+                    `Deleted Item Successfully: ${TABLE_NAME}`,
+                    { id }
+                );
+                res.status(status).send(response);
+            } else {
+                const status = HttpStatus.NOT_FOUND.code;
+                const response = new Response(
+                    status,
+                    HttpStatus.NOT_FOUND.status,
+                    `Not Found by ID: ${TABLE_NAME}`
+                );
+                res.status(status).send(response);
+            }
+        });
+    },
+
     createDecorDesignedProductValues: async function (entity, req, res) {
         const { TABLE_NAME } = entity;
         const COLUMN_NAME = Object.keys(req.body);
@@ -294,6 +344,7 @@ const CONTROLLER_SERVICE = {
             res.status(status).send(response);
         }
     },
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     getProductsByCategoryId: function (entity, req, res) {

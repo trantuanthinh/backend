@@ -22,5 +22,5 @@ export const updateDes_Product = (req, res) => {
 };
 
 export const deleteDes_Product = (req, res) => {
-    CONTROLLER_SERVICE.deleteItem(ENTITIES.Des_Products, req, res);
+    CONTROLLER_SERVICE.deleteItemValues([ENTITIES.Decor_Des_Products_Details], ENTITIES.Des_Products, req, res);
 };

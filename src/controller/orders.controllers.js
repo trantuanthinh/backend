@@ -18,5 +18,5 @@ export const updateOrder = (req, res) => {
 };
 
 export const deleteOrder = (req, res) => {
-    CONTROLLER_SERVICE.deleteItem(ENTITIES.Orders, req, res);
+    CONTROLLER_SERVICE.deleteItemValues([ENTITIES.Order_Prod_Details, ENTITIES.Order_Des_Prod_Details, ENTITIES.Total_Detail], ENTITIES.Orders, req, res);
 };
