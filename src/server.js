@@ -98,16 +98,3 @@ app.all("*", (req, res) =>
             )
         )
 );
-
-// adminsRoutes.use(express.json());
-// categoriesRoutes.use(express.json());
-// customersRoutes.use(express.json());
-// decorsRoutes.use(express.json());
-// des_productsRoutes.use(express.json());
-// flavoursRoutes.use(express.json());
-// inventoriesRoutes.use(express.json());
-// order_detailsRoutes.use(express.json());
-// ordersRoutes.use(express.json());
-// productsRoutes.use(express.json());
-// shapesRoutes.use(express.json());
-// sizesRoutes.use(express.json());
