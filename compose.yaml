@@ -1,0 +1,38 @@
+services:
+    backend:
+        container_name: backendcontainer
+        build:
+            context: ../backend
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        depends_on:
+            - db
+        environment:
+            DB_HOST: "db"
+            DB_PORT: 3306
+            DB_USER: "root"
+            DB_PASSWORD: "trantuanthinh"
+            DB_NAME: "3t"
+            SERVICE_TAGS: "prod"
+            SERVICE_NAME: "nodeappservice"
+            SERVER_PORT: 3000
+        ports:
+            - "3000:3000"
+        volumes:
+            - ../backend:/usr/src/app
+
+    db:
+        image: mysql:8.0
+        container_name: mysqlcontainer
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: "3t"
+            MYSQL_ROOT_PASSWORD: "trantuanthinh"
+            SERVICE_TAGS: "prod"
+            SERVICE_NAME: "mysqldb"
+        ports:
+            - "3307:3307"
+        volumes:
+            - ../db/init.sql:/docker-entrypoint-initdb.d/init.sql
+        expose:
+            - 3306
